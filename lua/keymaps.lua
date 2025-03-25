@@ -14,6 +14,10 @@ end
 -- General Keymaps
 ---------------------
 
+-- Map j and k to not skip visual lines when line wrapping
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 -- Use jk to exit insert mode
 map("i", "jk", "<ESC>")
 
