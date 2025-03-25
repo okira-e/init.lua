@@ -378,4 +378,11 @@ return require("lazy").setup({
             })
         end,
     },
+
+    {
+        "szw/vim-maximizer",
+        keys = {
+            { "<leader>m", "<cmd>MaximizerToggle<CR>", desc = "Toggle maximize split" },
+        },
+    }
 })
