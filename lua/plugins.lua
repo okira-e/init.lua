@@ -103,7 +103,7 @@ return require("lazy").setup({
                 grep = {
                     prompt = "Grep❯ ",
                     input_prompt = "Grep For❯ ",
-                    rg_opts = "--line-number --no-heading --color=always --smart-case -e",
+                    rg_opts = "--column --line-number --no-heading --color=always --smart-case -e",
                 },
             })
 
@@ -172,8 +172,6 @@ return require("lazy").setup({
                 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
                 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
                 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-
-                vim.notify("LSP attached: " .. client.name)
             end
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -198,6 +196,50 @@ return require("lazy").setup({
                         },
                     })
                 end,
+            })
+        end,
+    },
+
+    -- Cleaner hover info popup
+    {
+        "folke/noice.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
+        event = "VeryLazy",
+        config = function()
+            require("noice").setup({
+                lsp = {
+                    hover = {
+                        enabled = true,
+                        silent = true,
+                        opts = {
+                            border = {
+                                style = "rounded",
+                                -- padding = { 1, 2 }, -- { vertical, horizontal }
+                            },
+                            win_options = {
+                                winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+                            },
+                        },
+                    },
+                    signature = {
+                        enabled = true,
+                        opts = {
+                            border = {
+                                style = "rounded",
+                                padding = { 1, 2 },
+                            },
+                        },
+                    },
+                },
+                presets = {
+                    bottom_search = false,
+                    command_palette = false,
+                    long_message_to_split = true,
+                    inc_rename = false,
+                },
             })
         end,
     },
@@ -260,17 +302,17 @@ return require("lazy").setup({
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    -- ["<Tab>"] = cmp.mapping(function(fallback)
-                    --     if cmp.visible() then
-                    --         cmp.select_next_item()
-                    --     elseif luasnip.expandable() then
-                    --         luasnip.expand()
-                    --     elseif luasnip.expand_or_jumpable() then
-                    --         luasnip.expand_or_jump()
-                    --     else
-                    --         fallback()
-                    --     end
-                    -- end, { "i", "s" }),
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expandable() then
+                            luasnip.expand()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
