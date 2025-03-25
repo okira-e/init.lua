@@ -379,10 +379,25 @@ return require("lazy").setup({
         end,
     },
 
+    -- Maximaize a split temporarily like in Zed.
     {
         "szw/vim-maximizer",
         keys = {
             { "<leader>m", "<cmd>MaximizerToggle<CR>", desc = "Toggle maximize split" },
         },
+    },
+
+    -- Jump to any symbol like in Helix.
+    {
+        "phaazon/hop.nvim",
+        branch = "v2",
+        config = function()
+            require("hop").setup()
+
+            -- Map `gw` to word jump like Helix
+            vim.keymap.set("n", "gw", function()
+                require("hop").hint_words()
+            end, { desc = "Hop to word" })
+        end,
     }
 })
