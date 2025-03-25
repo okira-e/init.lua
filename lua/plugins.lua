@@ -116,7 +116,7 @@ return require("lazy").setup({
         end,
     },
 
-    -- Better syntax highlighting and parsing
+    -- Syntax highlighting and parsing
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -229,7 +229,7 @@ return require("lazy").setup({
                         },
                     },
                     signature = {
-                        enabled = true,
+                        enabled = false,
                         opts = {
                             border = {
                                 style = "rounded",
