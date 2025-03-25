@@ -1,0 +1,4 @@
+- Copilot with toggling
+- Exit nvim tree on file chosing
+- retain last grepped value
+- :W == :w
