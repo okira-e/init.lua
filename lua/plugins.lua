@@ -219,6 +219,10 @@ return require("lazy").setup({
                                 style = "rounded",
                                 -- padding = { 1, 2 }, -- { vertical, horizontal }
                             },
+                            position = {
+                                row = 2,  -- ⬅️ this pushes it down by 1 line
+                                col = 0,
+                            },
                             win_options = {
                                 winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
                             },
