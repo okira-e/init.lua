@@ -17,7 +17,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup plugins
 return require("lazy").setup({
     -- Themes
-
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -47,6 +46,26 @@ return require("lazy").setup({
 
     -- Essential plugins
     { "nvim-lua/plenary.nvim" },
+
+    {
+        "github/copilot.vim",
+        lazy = false,
+        config = function()
+            -- Disable by default
+            vim.g.copilot_enabled = false
+
+            -- Optional: suppress Copilot's tab mapping (to avoid conflict with cmp)
+            vim.g.copilot_no_tab_map = true
+            vim.g.copilot_assume_mapped = true
+
+            vim.keymap.set("n", "<leader>cp", function()
+                vim.g.copilot_enabled = not vim.g.copilot_enabled
+                print("Copilot " .. (vim.g.copilot_enabled and "enabled" or "disabled"))
+            end, { desc = "Toggle Copilot" })
+
+            vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', {silent = true, expr = true, script = true})
+        end,
+    },
 
     -- File explorer
     {
@@ -241,17 +260,17 @@ return require("lazy").setup({
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item()
-                        elseif luasnip.expandable() then
-                            luasnip.expand()
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
+                    -- ["<Tab>"] = cmp.mapping(function(fallback)
+                    --     if cmp.visible() then
+                    --         cmp.select_next_item()
+                    --     elseif luasnip.expandable() then
+                    --         luasnip.expand()
+                    --     elseif luasnip.expand_or_jumpable() then
+                    --         luasnip.expand_or_jump()
+                    --     else
+                    --         fallback()
+                    --     end
+                    -- end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
