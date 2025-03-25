@@ -111,6 +111,15 @@ return require("lazy").setup({
                     additional_vim_regex_highlighting = false,
                 },
                 indent = { enable = true },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<C-l>",   -- start selection
+                        node_incremental = "<C-l>", -- expand
+                        node_decremental = "<C-h>", -- shrink
+                        scope_incremental = "<C-k>", -- optional: jump to scope
+                    },
+                },
             })
         end,
     },
@@ -349,10 +358,10 @@ return require("lazy").setup({
             vim.g.VM_default_mappings = 0
 
             vim.g.VM_maps = {
-                ["Find Under"]         = "<C-n>",   -- Select next
-                ["Select All"]         = "<C-a>",   -- Select all
-                ["Add Cursor Up"]      = "<C-k>",   -- Alt+k for up
-                ["Add Cursor Down"]    = "<C-j>",   -- Alt+j for down
+                ["Find Under"]         = "<C-n>",
+                ["Select All"]         = "<C-a>",
+                ["Add Cursor Up"]      = "<C-k>",
+                ["Add Cursor Down"]    = "<C-j>",
             }
         end
     },
