@@ -11,7 +11,17 @@ vim.api.nvim_create_user_command("ReloadAll", "bufdo e!", {})
 vim.api.nvim_create_user_command("Lang", function(opts)
     vim.cmd("set filetype " .. opts.args)
 end, {
-    nargs = 1,
-    complete = "filetype",
-    desc = "Manually set filetype",
+        nargs = 1,
+        complete = "filetype",
+        desc = "Manually set filetype",
+    })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove("r") -- Don't continue comments after Enter
+        vim.opt_local.formatoptions:remove("o") -- Don't continue comments with o/O
+        vim.opt_local.formatoptions:remove("c") -- Don't auto-wrap comments using textwidth
+    end,
+    desc = "Disable automatic comment continuation",
 })
