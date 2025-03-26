@@ -66,9 +66,7 @@ map("v", "p", '"_dP')
 
 -- Quick save
 map("n", "<leader>w", ":w<CR>")
--- map("n", "<leader>q", ":q<CR>")
--- map("n", "<leader>Q", ":qa!<CR>")
 
 -- Quick split
--- map("n", "<leader>v", ":vsplit<CR>")
+map("n", "<leader>v", ":vsplit<CR>")
 -- map("n", "<leader>s", ":split<CR>")
