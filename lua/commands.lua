@@ -8,6 +8,7 @@ vim.api.nvim_create_user_command("Vs", "vs", {})
 vim.api.nvim_create_user_command("Reload", "e!", {})
 vim.api.nvim_create_user_command("ReloadAll", "bufdo e!", {})
 
+-- Lang=json
 vim.api.nvim_create_user_command("Lang", function(opts)
     vim.cmd("set filetype " .. opts.args)
 end, {
@@ -15,6 +16,11 @@ end, {
         complete = "filetype",
         desc = "Manually set filetype",
     })
+
+
+--
+-- Autocmds
+--
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",

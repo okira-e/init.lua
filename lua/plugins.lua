@@ -422,6 +422,9 @@ return require("lazy").setup({
                     -- Inline blame
                     vim.keymap.set("n", "<leader>g", gs.toggle_current_line_blame, opts)
 
+                    -- Show the current git blame
+                    vim.api.nvim_create_user_command("Blame", "Gitsigns blame_line", {})
+
                     vim.api.nvim_buf_create_user_command(bufnr, "Reset", function()
                         gs.reset_hunk()
                     end, { desc = "Reset current git hunk" })
