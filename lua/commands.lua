@@ -10,7 +10,9 @@ vim.api.nvim_create_user_command("V", "v", {})
 vim.api.nvim_create_user_command("Vs", "vs", {})
 vim.api.nvim_create_user_command("VS", "vs", {})
 vim.api.nvim_create_user_command("Reload", "e!", {})
+vim.api.nvim_create_user_command("R", "e!", {})
 vim.api.nvim_create_user_command("ReloadAll", "bufdo e!", {})
+vim.api.nvim_create_user_command("Ra", "bufdo e!", {})
 
 -- Lang=json
 vim.api.nvim_create_user_command("Lang", function(opts)
