@@ -371,6 +371,7 @@ return require("lazy").setup({
                                     NORMAL = "MOVE",
                                     INSERT = "BUGS",
                                     VISUAL = "YANK",
+                                    ["V-LINE"] = "YANK",
                                     REPLACE = "OUTTAHERE",
                                     COMMAND = "$",
                                 })[str] or str
