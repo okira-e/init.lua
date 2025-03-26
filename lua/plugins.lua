@@ -463,6 +463,8 @@ return require("lazy").setup({
                 open_mapping = [[<c-\>]],
                 direction = "float",
             })
+
+            vim.keymap.set("t", "<C-Space>", [[<C-\><C-n>]], { desc = "Exit terminal insert mode" })
         end,
     },
 
