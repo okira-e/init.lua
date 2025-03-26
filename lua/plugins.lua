@@ -47,6 +47,7 @@ return require("lazy").setup({
     -- Essential plugins
     { "nvim-lua/plenary.nvim" },
 
+    -- Copilot
     {
         "github/copilot.vim",
         lazy = false,
@@ -253,6 +254,7 @@ return require("lazy").setup({
         end,
     },
 
+    -- Terminal window inside of Neovim.
     {
         "akinsho/toggleterm.nvim",
         version = "*",
@@ -416,6 +418,9 @@ return require("lazy").setup({
                         vim.schedule(gs.prev_hunk)
                         return "<Ignore>"
                     end, vim.tbl_extend("force", opts, { expr = true }))
+
+                    -- Inline blame
+                    vim.keymap.set("n", "<leader>g", gs.toggle_current_line_blame, opts)
 
                     vim.api.nvim_buf_create_user_command(bufnr, "Reset", function()
                         gs.reset_hunk()
