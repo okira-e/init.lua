@@ -113,6 +113,7 @@ return require("lazy").setup({
             vim.keymap.set("n", "<leader>?", fzf.grep_cword) -- grep for word under cursor
             vim.keymap.set("n", "<leader>s", fzf.lsp_document_symbols)
             vim.keymap.set("n", "<leader>S", fzf.lsp_workspace_symbols)
+            vim.keymap.set("n", "<leader>D", fzf.diagnostics_workspace)
         end,
     },
 
@@ -375,7 +376,12 @@ return require("lazy").setup({
                         },
                     },
                     lualine_b = { "branch" },
-                    lualine_c = { "filename" },
+                    lualine_c = {
+                        {
+                            "filename",
+                            path = 1,  -- 0 = just filename, 1 = relative path, 2 = absolute path
+                        },
+                    },
                     lualine_x = { "filetype" },
                     lualine_y = {
                         "",
