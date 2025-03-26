@@ -305,6 +305,9 @@ return require("lazy").setup({
                         luasnip.lsp_expand(args.body)
                     end,
                 },
+                completion = {
+                    autocomplete = false, -- Disable auto completion popup
+                },
                 mapping = cmp.mapping.preset.insert({
                     ["<C-k>"] = cmp.mapping.select_prev_item(),
                     ["<C-j>"] = cmp.mapping.select_next_item(),
