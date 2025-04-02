@@ -155,7 +155,7 @@ return require("lazy").setup({
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "tsserver", "pyright", "html", "cssls" },
+                ensure_installed = { "lua_ls", "pyright", "html", "cssls" },
                 automatic_installation = true,
             })
 

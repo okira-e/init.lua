@@ -48,8 +48,8 @@ opt.splitbelow = true     -- Split windows to the bottom
 opt.iskeyword:append("-")
 
 -- Decrease update time
-opt.updatetime = 250      -- Faster completion (default: 4000ms)
-opt.timeoutlen = 300      -- Time to wait for a mapped sequence (default: 1000ms)
+opt.updatetime = 1000     -- Faster completion (default: 4000ms)
+opt.timeoutlen = 1000     -- Time to wait for a mapped sequence (default: 1000ms)
 
 -- Enable persistent undo
 opt.undofile = true
