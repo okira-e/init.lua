@@ -381,14 +381,24 @@ return require("lazy").setup({
                             end,
                         },
                     },
-                    lualine_b = { "branch" },
+                    lualine_b = { 
+                        {
+                            "branch",
+                            icons_enabled = false,
+                        }
+                    },
                     lualine_c = {
                         {
                             "filename",
                             path = 1,  -- 0 = just filename, 1 = relative path, 2 = absolute path
                         },
                     },
-                    lualine_x = { "filetype" },
+                    lualine_x = {
+                        {
+                            "filetype",
+                            icons_enabled = false,
+                        }
+                    },
                     lualine_y = {
                         "",
                         function()
