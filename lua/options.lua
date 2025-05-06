@@ -7,8 +7,8 @@ opt.number = false         -- Show line numbers
 opt.relativenumber = false -- Show relative line numbers
 
 -- Tabs & Indentation
-opt.tabstop = 4           -- spaces for tabs
-opt.shiftwidth = 4        -- spaces for indent width
+-- Note: the indentation is not set as it's automatically handled
+-- by a third-party plugin
 opt.expandtab = true      -- Use spaces instead of tabs
 opt.autoindent = true     -- Copy indent from current line when starting new one
 opt.smartindent = true    -- Smart autoindenting when starting a new line
