@@ -13,6 +13,20 @@ vim.api.nvim_create_user_command("Reload", "e!", {})
 vim.api.nvim_create_user_command("R", "e!", {})
 vim.api.nvim_create_user_command("ReloadAll", "bufdo e!", {})
 vim.api.nvim_create_user_command("Ra", "bufdo e!", {})
+vim.api.nvim_create_user_command("Indent", function(opts)
+  local n = tonumber(opts.args)
+  if not n then
+    vim.api.nvim_err_writeln("Indent: invalid number of spaces")
+    return
+  end
+  vim.opt.shiftwidth = n
+  vim.opt.tabstop = n
+  vim.opt.softtabstop = n
+  vim.opt.expandtab = true
+end, {
+  nargs = 1,
+})
+
 
 -- Lang=json
 vim.api.nvim_create_user_command("Lang", function(opts)
