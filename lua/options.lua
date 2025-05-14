@@ -2,6 +2,9 @@
 
 local opt = vim.opt
 
+-- Set default terminal
+vim.opt.shell = "/bin/zsh"
+
 -- Line numbers
 opt.number = false         -- Show line numbers
 opt.relativenumber = false -- Show relative line numbers
