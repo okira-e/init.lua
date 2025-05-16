@@ -26,15 +26,17 @@ vim.api.nvim_create_user_command("Indent", function(opts)
 end, {
   nargs = 1,
 })
+
 vim.api.nvim_create_user_command("Reset", "Gitsigns reset_hunk", {
   nargs = 0,
   desc = "Reset the current hunk",
 })
 
 
--- Lang=json
+-- Lang json
 vim.api.nvim_create_user_command("Lang", function(opts)
-  vim.cmd("set filetype " .. opts.args)
+  local ft = opts.args:gsub("^=", "") -- strip leading = if present
+  vim.cmd("set filetype=" .. ft)
 end, {
     nargs = 1,
     complete = "filetype",
