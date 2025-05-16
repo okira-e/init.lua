@@ -269,7 +269,6 @@ return require("lazy").setup({
             local toggleterm = require("toggleterm")
 
             toggleterm.setup({
-                open_mapping = [[<C-\>]],
                 direction = "float",
                 float_opts = {
                     border = "curved",
@@ -402,7 +401,7 @@ return require("lazy").setup({
                     },
                     lualine_x = {
                         {
-                            "filetype",
+                            "",
                             icons_enabled = false,
                         }
                     },
