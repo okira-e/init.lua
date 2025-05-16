@@ -34,12 +34,12 @@ vim.api.nvim_create_user_command("Reset", "Gitsigns reset_hunk", {
 
 -- Lang=json
 vim.api.nvim_create_user_command("Lang", function(opts)
-    vim.cmd("set filetype " .. opts.args)
+  vim.cmd("set filetype " .. opts.args)
 end, {
-        nargs = 1,
-        complete = "filetype",
-        desc = "Manually set filetype",
-    })
+    nargs = 1,
+    complete = "filetype",
+    desc = "Manually set filetype",
+  })
 
 
 --

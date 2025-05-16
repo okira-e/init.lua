@@ -108,7 +108,7 @@ return require("lazy").setup({
     -- File explorer
     {
         "nvim-tree/nvim-tree.lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = {}, -- you don't need nvim-web-devicons if you're removing icons
         config = function()
             require("nvim-tree").setup({
                 sort_by = "case_sensitive",
@@ -117,6 +117,13 @@ return require("lazy").setup({
                 },
                 renderer = {
                     group_empty = true,
+                    icons = {
+                        show = {
+                            file = false,
+                            folder = false,
+                            folder_arrow = false,
+                        },
+                    },
                 },
                 filters = {
                     dotfiles = true,
@@ -433,7 +440,6 @@ return require("lazy").setup({
     -- Status line
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" }, -- nocheckin: Remove this
         config = function()
             require("lualine").setup({
                 options = {
