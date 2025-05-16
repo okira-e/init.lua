@@ -59,25 +59,17 @@ return require("lazy").setup({
         end,
     },
 
-    { -- One Dark
-        "navarasu/onedark.nvim",
-        lazy = false,
-        priority = 1000,
+    {
+        'projekt0n/github-nvim-theme',
+        name = 'github-theme',
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-            require("onedark").setup({
-                style = "darker",
-                transparent = true,
-                term_colors = true,
-                ending_tildes = false,
-                code_style = {
-                    comments = "italic",
-                    keywords = "none",
-                    functions = "none",
-                    strings = "none",
-                    variables = "none",
-                },
+            require('github-theme').setup({
+                -- ...
             })
-            require("onedark").load()
+
+            vim.cmd('colorscheme github_dark')
         end,
     },
 
