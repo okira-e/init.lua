@@ -11,3 +11,7 @@ require("commands")   -- Commands management and setup
 -- Set the title of the terminal to tbe the path of the current folder
 vim.opt.title = true
 vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
+
+
+-- vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme "ayu-mirage"

@@ -16,7 +16,10 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup plugins
 return require("lazy").setup({
+    --
     -- Themes
+    --
+
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -40,7 +43,41 @@ return require("lazy").setup({
                     treesitter = true,
                 },
             })
-            vim.cmd.colorscheme "catppuccin"
+        end,
+    },
+
+    { -- Ayu
+        "Shatur/neovim-ayu",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.g.ayu_style = "dark"
+            vim.g.ayu_transparent = 1
+            vim.g.ayu_italic = 1
+            vim.g.ayu_bold = 1
+            vim.cmd.colorscheme "ayu"
+        end,
+    },
+
+    { -- One Dark
+        "navarasu/onedark.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("onedark").setup({
+                style = "darker",
+                transparent = true,
+                term_colors = true,
+                ending_tildes = false,
+                code_style = {
+                    comments = "italic",
+                    keywords = "none",
+                    functions = "none",
+                    strings = "none",
+                    variables = "none",
+                },
+            })
+            require("onedark").load()
         end,
     },
 
@@ -103,25 +140,60 @@ return require("lazy").setup({
 
     -- Global search
     {
-        "ibhagwan/fzf-lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+        },
         config = function()
-            local fzf = require("fzf-lua")
-            fzf.setup({
-                grep = {
-                    prompt = "Grep❯ ",
-                    input_prompt = "Grep For❯ ",
-                    rg_opts = "--column --line-number --no-heading --color=always --smart-case -e",
+            local builtin = require("telescope.builtin")
+            local actions = require("telescope.actions")
+
+            require("telescope").setup({
+                defaults = {
+                    file_ignore_patterns = {
+                        "node_modules",
+                        ".git/",
+                        ".DS_Store",
+                        "__pycache__",
+                        "%.egg-info",
+                        "%.egg-info/.*",
+                        "%.egg-info/.*/*",
+                        "target/",
+                        "venv/",
+                        "vendor/",
+                    },
+                    sorting_strategy = "ascending", -- puts newest match at top
+                    layout_config = {
+                        horizontal = {
+                            width = 0.9,
+                            preview_width = 0.55,
+                            prompt_position = "top",
+                        },
+                    },
+                    -- Close when I ESC
+                    mappings = {
+                        i = {
+                            ["<esc>"] = actions.close,
+                            ["<C-c>"] = actions.close, -- optional backup
+                        },
+                        n = {
+                            ["<esc>"] = actions.close,
+                            ["q"] = actions.close, -- another fallback
+                        },
+                    },
                 },
             })
 
-            vim.keymap.set("n", "<leader>f", fzf.files, {})
-            vim.keymap.set("n", "<leader>b", fzf.buffers, {})
-            vim.keymap.set("n", "<leader>/", fzf.live_grep_native)
-            vim.keymap.set("n", "<leader>?", fzf.grep_cword) -- grep for word under cursor
-            vim.keymap.set("n", "<leader>s", fzf.lsp_document_symbols)
-            vim.keymap.set("n", "<leader>S", fzf.lsp_workspace_symbols)
-            vim.keymap.set("n", "<leader>D", fzf.diagnostics_workspace)
+            vim.keymap.set("n", "<leader>f", function()
+                builtin.find_files({ disable_devicons = true })
+            end, {})
+            vim.keymap.set("n", "<leader>b", builtin.buffers, {})
+            vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
+            vim.keymap.set("n", "<leader>?", builtin.grep_string, {})
+            vim.keymap.set("n", "<leader>s", builtin.lsp_document_symbols, {})
+            vim.keymap.set("n", "<leader>S", builtin.lsp_workspace_symbols, {})
+            vim.keymap.set("n", "<leader>D", builtin.diagnostics, {})
         end,
     },
 
@@ -168,16 +240,15 @@ return require("lazy").setup({
 
             local on_attach = function(client, bufnr)
                 local opts = { noremap = true, silent = true, buffer = bufnr }
-                local fzf = require("fzf-lua")
+                local telescope_builtin = require("telescope.builtin")
 
                 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
                 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-                -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
                 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
                 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, opts)
-                vim.keymap.set("n", "gr", fzf.lsp_references, opts)
+                vim.keymap.set("n", "gr", telescope_builtin.lsp_references, opts)
                 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
                 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
                 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -362,7 +433,7 @@ return require("lazy").setup({
     -- Status line
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = { "nvim-tree/nvim-web-devicons" }, -- nocheckin: Remove this
         config = function()
             require("lualine").setup({
                 options = {
