@@ -334,32 +334,6 @@ return require("lazy").setup({
         end,
     },
 
-    -- Terminal window inside of Neovim.
-    {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        config = function()
-            local toggleterm = require("toggleterm")
-
-            toggleterm.setup({
-                direction = "float",
-                float_opts = {
-                    border = "curved",
-                    width = 100,
-                    height = 30,
-                    winblend = 3,
-                },
-                start_in_insert = true,
-                persist_size = false,
-            })
-
-            -- -- Use manual keymap
-            -- vim.keymap.set("n", "<leader>j", function()
-            --     toggleterm.toggle(1)
-            -- end, { noremap = true, silent = true })
-        end,
-    },
-
     -- Autocompletion
     {
         "hrsh7th/nvim-cmp",
@@ -540,18 +514,31 @@ return require("lazy").setup({
         end
     },
 
-
-    -- Terminal integration
+    -- Terminal window inside of Neovim.
     {
         "akinsho/toggleterm.nvim",
         version = "*",
         config = function()
             require("toggleterm").setup({
-                open_mapping = [[<c-\>]],
                 direction = "float",
+                float_opts = {
+                    border = "curved",
+                },
+                -- direction = "horizontal",
+                -- size = function(term)
+                --     if term.direction == "horizontal" then
+                --         return 50
+                --     elseif term.direction == "vertical" then
+                --         return 80
+                --     end
+                -- end,
+                -- open_mapping = [[<c-\>]],
+                open_mapping = [[<c-enter>]],
+                start_in_insert = true,
+                persist_size = false,
             })
 
-            vim.keymap.set("t", "<C-Space>", [[<C-\><C-n>]], { desc = "Exit terminal insert mode" })
+            vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
         end,
     },
 
