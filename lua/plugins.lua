@@ -185,8 +185,11 @@ return require("lazy").setup({
             })
 
             vim.keymap.set("n", "<leader>f", function()
-                builtin.find_files({ disable_devicons = true })
-            end, {})
+                require("telescope.builtin").find_files({
+                    disable_devicons = true,
+                    find_command = { "rg", "--files", "--hidden", "--no-ignore" },
+                })
+            end)
             vim.keymap.set("n", "<leader>b", builtin.buffers, {})
             vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
             vim.keymap.set("n", "<leader>?", builtin.grep_string, {})
