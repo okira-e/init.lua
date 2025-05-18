@@ -532,8 +532,7 @@ return require("lazy").setup({
                 --         return 80
                 --     end
                 -- end,
-                -- open_mapping = [[<c-\>]],
-                open_mapping = [[<c-enter>]],
+                open_mapping = [[<c-\>]],
                 start_in_insert = true,
                 persist_size = false,
             })
