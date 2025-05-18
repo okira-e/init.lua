@@ -258,6 +258,11 @@ return require("lazy").setup({
                 vim.api.nvim_create_user_command("Format", function()
                     vim.lsp.buf.format({ async = true })
                 end, { desc = "Format current buffer with LSP" })
+
+                -- Set <leader>l
+                vim.keymap.set("n", "<leader>l", function()
+                    vim.lsp.buf.format({ async = true })
+                end, opts)
             end
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()

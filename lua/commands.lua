@@ -13,6 +13,7 @@ vim.api.nvim_create_user_command("Reload", "e!", {})
 vim.api.nvim_create_user_command("R", "e!", {})
 vim.api.nvim_create_user_command("ReloadAll", "bufdo e!", {})
 vim.api.nvim_create_user_command("Ra", "bufdo e!", {})
+vim.api.nvim_create_user_command("Find", "NvimTreeFindFile", {})
 vim.api.nvim_create_user_command("Indent", function(opts)
   local n = tonumber(opts.args)
   if not n then

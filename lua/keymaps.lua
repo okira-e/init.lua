@@ -18,9 +18,6 @@ end
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- Use jk to exit insert mode
-map("i", "jk", "<ESC>")
-
 -- Clear search highlights
 map("n", "<ESC>", ":nohlsearch<CR>")
 
@@ -32,12 +29,6 @@ map("n", "x", '"_x')
 
 -- Delete the previous word while typing with opt + delete
 map("i", "<M-BS>", "<C-w>")
-
--- Better window navigation
--- map("n", "<C-h>", "<C-w>h")
--- map("n", "<C-j>", "<C-w>j")
--- map("n", "<C-k>", "<C-w>k")
--- map("n", "<C-l>", "<C-w>l")
 
 -- Resize windows with arrows
 map("n", "<C-Up>", ":resize -2<CR>")
