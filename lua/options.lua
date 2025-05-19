@@ -37,8 +37,11 @@ opt.signcolumn = "yes"    -- Always show the signcolumn
 opt.scrolloff = 8         -- Keep 8 lines above/below cursor when scrolling
 opt.sidescrolloff = 8     -- Keep 8 columns left/right of cursor when scrolling horizontally
 
--- Backspace
-opt.backspace = "indent,eol,start" -- Allow backspace on indent, end of line or insert mode start position
+-- Disable mouse
+opt.mouse = ""
+
+-- backspace
+opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
 -- Clipboard
 -- opt.clipboard:append("unnamedplus") -- Use system clipboard

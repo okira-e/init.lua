@@ -152,6 +152,8 @@ return require("lazy").setup({
                 defaults = {
                     file_ignore_patterns = {
                         "node_modules",
+                        "dist",
+                        "build",
                         ".git/",
                         ".DS_Store",
                         "__pycache__",
