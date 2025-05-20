@@ -354,7 +354,12 @@ return require("lazy").setup({
             "rafamadriz/friendly-snippets",
         },
         config = function()
-            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/snippets" })
+            require("luasnip").config.set_config({
+                history = true,
+                updateevents = "TextChanged,TextChangedI",
+                enable_autosnippets = true,
+            })
 
             local cmp = require("cmp")
             local luasnip = require("luasnip")

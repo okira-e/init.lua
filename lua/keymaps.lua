@@ -60,4 +60,3 @@ map("n", "<leader>w", ":w<CR>")
 
 -- Quick split
 map("n", "<leader>v", ":vsplit<CR>")
--- map("n", "<leader>s", ":split<CR>")
