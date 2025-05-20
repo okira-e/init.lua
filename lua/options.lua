@@ -15,6 +15,9 @@ opt.relativenumber = false -- Show relative line numbers
 opt.expandtab = true      -- Use spaces instead of tabs
 opt.autoindent = true     -- Copy indent from current line when starting new one
 opt.smartindent = true    -- Smart autoindenting when starting a new line
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 4
 
 -- Line wrapping
 opt.wrap = true           -- Disable line wrapping
