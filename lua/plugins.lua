@@ -32,7 +32,7 @@ return require("lazy").setup({
                     light = "latte",
                     dark = "mocha",
                 },
-                transparent_background = false,
+                transparent_background = true,
                 term_colors = true,
                 integrations = {
                     cmp = true,
@@ -337,6 +337,14 @@ return require("lazy").setup({
                     long_message_to_split = true,
                     inc_rename = false,
                 },
+            })
+
+            require("notify").setup({
+                stages = "slide", -- or "fade", "static", "fade_in_slide_out"
+                timeout = 3000,
+                background_colour = "#000000",
+                render = "default",
+                top_down = false, -- bottom-right corner
             })
         end,
     },
