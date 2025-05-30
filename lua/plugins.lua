@@ -189,7 +189,7 @@ return require("lazy").setup({
             vim.keymap.set("n", "<leader>f", function()
                 require("telescope.builtin").find_files({
                     disable_devicons = true,
-                    find_command = { "rg", "--files", "--hidden", "--no-ignore" },
+                    find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
                 })
             end)
             vim.keymap.set("n", "<leader>b", builtin.buffers, {})
