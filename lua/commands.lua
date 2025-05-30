@@ -32,6 +32,10 @@ vim.api.nvim_create_user_command("Reset", "Gitsigns reset_hunk", {
   nargs = 0,
   desc = "Reset the current hunk",
 })
+vim.api.nvim_create_user_command("Preview", "Gitsigns preview_hunk", {
+  nargs = 0,
+  desc = "Reset the current hunk",
+})
 
 
 -- Lang json
