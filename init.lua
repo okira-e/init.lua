@@ -13,5 +13,5 @@ vim.opt.title = true
 vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 
 
--- vim.cmd.colorscheme "catppuccin-mocha"
-vim.cmd.colorscheme "ayu-mirage"
+vim.cmd.colorscheme "catppuccin-mocha"
+-- vim.cmd.colorscheme "ayu-mirage"
