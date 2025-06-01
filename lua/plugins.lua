@@ -41,6 +41,7 @@ return require("lazy").setup({
                     telescope = true,
                     mason = true,
                     treesitter = true,
+                    noice = true,
                 },
             })
         end,
