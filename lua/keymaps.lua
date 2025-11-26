@@ -58,5 +58,8 @@ map("v", "p", '"_dP')
 -- Quick save
 map("n", "<leader>w", ":w<CR>")
 
+-- Quick quit
+map("n", "QQ", ":q<CR>")
+
 -- Quick split
 map("n", "<leader>v", ":vsplit<CR>")

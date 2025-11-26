@@ -119,7 +119,8 @@ return require("lazy").setup({
                     },
                 },
                 filters = {
-                    dotfiles = true,
+                    dotfiles = false,
+                    git_ignored = false,
                 },
                 actions = {
                     open_file = {
@@ -139,6 +140,20 @@ return require("lazy").setup({
     },
 
     -- Global search
+    {
+        "nvim-pack/nvim-spectre",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("spectre").setup()
+            -- Optional: keymaps
+            vim.keymap.set("n", "<leader>ss", require("spectre").open, { desc = "Open Spectre" })
+            vim.keymap.set("n", "<leader>sw", function() require("spectre").open_visual({ select_word = true }) end,
+                { desc = "Search current word" })
+            vim.keymap.set("v", "<leader>sw", require("spectre").open_visual, { desc = "Search selection" })
+            -- vim.keymap.set("n", "<leader>sp", require("spectre").open_file_search, { desc = "Search in current file" })
+        end,
+    },
+
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
@@ -553,7 +568,7 @@ return require("lazy").setup({
                 --         return 80
                 --     end
                 -- end,
-                open_mapping = [[<c-\>]],
+                open_mapping = [[<c-`>]],
                 start_in_insert = true,
                 persist_size = false,
             })
