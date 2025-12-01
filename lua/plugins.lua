@@ -32,7 +32,7 @@ return require("lazy").setup({
                     light = "latte",
                     dark = "mocha",
                 },
-                transparent_background = true,
+                transparent_background = false,
                 term_colors = true,
                 integrations = {
                     cmp = true,
@@ -568,7 +568,7 @@ return require("lazy").setup({
                 --         return 80
                 --     end
                 -- end,
-                open_mapping = [[<c-`>]],
+                open_mapping = [[<c-;>]],
                 start_in_insert = true,
                 persist_size = false,
             })
