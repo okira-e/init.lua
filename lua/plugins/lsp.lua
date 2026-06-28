@@ -24,6 +24,7 @@ return {
         "gopls",
         "clangd",       -- C / C++
         "zls",          -- Zig
+        "ols",          -- Odin
         "pyright",      -- Python types
         "ruff",         -- Python lint/format
         "bashls",       -- Bash / shell
