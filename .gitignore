@@ -1,0 +1,9 @@
+# Neovim/runtime artifacts
+*.log
+*.tmp
+*.swp
+*.swo
+Session.vim
+
+# Local assistant/editor metadata
+.claude/
