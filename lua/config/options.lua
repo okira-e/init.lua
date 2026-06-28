@@ -87,41 +87,9 @@ opt.mouse = "a"
 
 -- Native completion menu behavior (used by the built-in LSP completion).
 opt.completeopt = "menu,menuone,noselect"
-opt.pumborder = ""
-opt.pumwidth = vim.o.columns
 
--- Command-line completion for paths/commands, e.g. `:e src/<Tab>`.
-opt.wildmenu = true
-opt.wildmode = "noselect:lastused,full"
-opt.wildoptions = "pum"
-
-vim.api.nvim_create_autocmd("CmdlineChanged", {
-  group = vim.api.nvim_create_augroup("FileCommandCompletion", { clear = true }),
-  pattern = ":",
-  callback = function()
-    local cmdline = vim.fn.getcmdline()
-    local cmd = cmdline:match("^%s*(%S+)")
-    local file_commands = {
-      e = true, edit = true,
-      sp = true, split = true,
-      vs = true, vsp = true, vsplit = true,
-      tabe = true, tabedit = true, tabnew = true,
-    }
-
-    if cmd and file_commands[cmd] and cmdline:match("^%s*%S+%s+") then
-      pcall(vim.fn.wildtrigger)
-    end
-  end,
-  desc = "Auto-show path completion for file-opening commands",
-})
-
-vim.api.nvim_create_autocmd("VimResized", {
-  group = vim.api.nvim_create_augroup("FullWidthPopupMenu", { clear = true }),
-  callback = function()
-    vim.o.pumwidth = vim.o.columns
-  end,
-  desc = "Keep native popup menu full-width",
-})
+-- Command-line completion: show matches without inserting the only match.
+opt.wildmode = "noselect:full,full"
 
 -- Default rounded border on floating windows (hover, signature help,
 -- diagnostics). The border frames the content so text no longer runs to the
