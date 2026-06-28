@@ -24,10 +24,6 @@ local opt = vim.opt
 -- the terminal keeps its own cursor color.
 opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:block-Cursor,r-cr-o:block-Cursor,a:blinkon0"
 
--- Let the cursor move through visual columns inside hard tabs, instead of only
--- landing on the tab character's final screen column.
-opt.virtualedit = "all"
-
 -- Soft line wrapping that breaks at word boundaries and keeps indentation.
 opt.wrap = true
 opt.linebreak = true
