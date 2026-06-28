@@ -28,6 +28,7 @@ return {
     keys = {
       { "<leader>f", function() Snacks.picker.files() end, desc = "Find files" },
       { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<leader>g", function() Snacks.picker.git_status() end, desc = "Git changed files" },
       { "<leader>/", global_search, desc = "Global search (grep)" },
       { "<leader>t", function() Snacks.picker.grep({ search = "nocheckin" }) end, desc = "Find nocheckin markers" },
       { "<leader>s", function() Snacks.picker.lsp_symbols() end, desc = "Document symbols" },

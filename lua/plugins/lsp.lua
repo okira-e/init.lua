@@ -29,6 +29,7 @@ return {
         "bashls",       -- Bash / shell
         "yamlls",
         "taplo",        -- TOML
+        "marksman",     -- Markdown
         -- "nil_ls",    -- Nix: re-enable once `nix` is installed (it builds from source against it).
       }
 
