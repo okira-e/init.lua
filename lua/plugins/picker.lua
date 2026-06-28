@@ -43,6 +43,9 @@ return {
     },
     opts = {
       picker = {
+        icons = {
+          files = { enabled = false },
+        },
         sources = {
           files = { hidden = true },
           grep = { hidden = true },
