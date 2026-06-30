@@ -7,12 +7,13 @@ map("n", "<leader>w", "<cmd>write<CR>", { desc = "Save buffer" })
 
 -- Format the current file. On-demand only; nothing formats on save.
 --
--- JS/TS (and JSX/TSX) go through Prettier so the project's .prettierrc is
--- honored — the LSP (ts_ls) ignores it. Everything else uses the attached LSP,
--- which does nothing if no server provides formatting.
+-- JS/TS (and JSX/TSX) plus Markdown go through Prettier so the project's
+-- .prettierrc is honored. Everything else uses the attached LSP, which does
+-- nothing if no server provides formatting.
 local PRETTIER_FT = {
   javascript = true, javascriptreact = true,
   typescript = true, typescriptreact = true,
+  markdown = true, markdown_mdx = true,
 }
 
 -- Resolve Prettier: prefer the project-local node_modules/.bin/prettier so the
@@ -63,27 +64,33 @@ end, { desc = "Format file" })
 -- Yank the visual selection explicitly to the system clipboard.
 map("x", "Y", '"+y', { desc = "Yank selection to system clipboard" })
 
--- Incremental selection: grow/shrink the visual selection along syntactic
--- ranges. Works from normal mode (starts a selection at the cursor) and from
--- visual mode (steps the existing one). Plain Ctrl chords — single bytes every
--- terminal sends, so these work through tmux with no extended-keys setup.
---
--- Prefer the LSP's textDocument/selectionRange when a server supports it; fall
--- back to Treesitter nodes otherwise (e.g. ols, the Odin server, doesn't
--- implement selectionRange). The Treesitter module keeps its own per-buffer
--- stack, so shrink walks back out the same way.
+-- Incremental selection: grow/shrink along Treesitter syntax nodes. LSP
+-- selectionRange is only a fallback: some servers start at whole statements,
+-- while Treesitter can usually begin at the expression under the cursor.
 local function lsp_has_selection_range()
   return #vim.lsp.get_clients({ bufnr = 0, method = "textDocument/selectionRange" }) > 0
 end
 
-local function incremental_select(direction)
+local function lsp_selection_range(direction)
   if lsp_has_selection_range() then
     vim.lsp.buf.selection_range(direction)
-    return
+    return true
   end
-  local sel = require("nvim-treesitter.incremental_selection")
-  local ok = pcall(direction > 0 and sel.node_incremental or sel.node_decremental)
-  if not ok then
+  return false
+end
+
+local function incremental_select(direction)
+  local ok, sel = pcall(require, "nvim-treesitter.incremental_selection")
+  if ok then
+    local mode = vim.fn.mode()
+    local fn = direction > 0
+      and (mode:match("^n") and sel.init_selection or sel.node_incremental)
+      or sel.node_decremental
+    ok = pcall(fn)
+    if ok then return end
+  end
+
+  if not lsp_selection_range(direction) then
     vim.notify("No selection-range source for this buffer (LSP or Treesitter)", vim.log.levels.WARN)
   end
 end

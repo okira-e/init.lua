@@ -7,13 +7,31 @@ local function project_root()
   return vim.fs.root(vim.api.nvim_buf_get_name(0), markers) or vim.uv.cwd()
 end
 
--- Remembers the last global-search query so reopening re-applies it (Zed/Helix
--- style). Seeded into the grep input on open; captured on close. Older queries
--- are still reachable with <C-Up>/<C-Down> (snacks input history).
+-- Remembers the last global-search query. Reopening starts empty; press Up or
+-- Ctrl-p in an empty global-search input to restore the previous query.
 local last_grep = ""
 local function global_search()
   Snacks.picker.grep({
-    search = last_grep,
+    actions = {
+      restore_last_grep = function(picker)
+        local input = picker.input
+        if not input then return end
+        local current = picker.opts.live and input.filter.search or input.filter.pattern
+        if current == "" and last_grep ~= "" then
+          input:set(last_grep, last_grep)
+          return true
+        end
+      end,
+      restore_last_grep_or_up = function(picker) picker:action({ "restore_last_grep", "list_up" }) end,
+    },
+    win = {
+      input = {
+        keys = {
+          ["<Up>"] = { "restore_last_grep_or_up", mode = { "i", "n" } },
+          ["<C-p>"] = { "restore_last_grep_or_up", mode = { "i", "n" } },
+        },
+      },
+    },
     on_close = function(picker)
       local q = picker.input and picker.input.filter and picker.input.filter.search
       if q and q ~= "" then last_grep = q end
@@ -57,6 +75,12 @@ return {
               -- One Esc closes the picker. By default Esc only leaves insert
               -- mode (input -> normal), so it took two presses to close.
               ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<C-Left>"] = { "<C-o>b", mode = "i", expr = true, desc = "Move word left" },
+              ["<C-Right>"] = { "<C-o>w", mode = "i", expr = true, desc = "Move word right" },
+              ["<M-Left>"] = { "<C-o>b", mode = "i", expr = true, desc = "Move word left" },
+              ["<M-Right>"] = { "<C-o>w", mode = "i", expr = true, desc = "Move word right" },
+              ["<M-b>"] = { "<C-o>b", mode = "i", expr = true, desc = "Move word left" },
+              ["<M-f>"] = { "<C-o>w", mode = "i", expr = true, desc = "Move word right" },
             },
           },
         },

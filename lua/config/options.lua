@@ -91,6 +91,21 @@ opt.completeopt = "menu,menuone,noselect"
 -- Command-line completion: show matches without inserting the only match.
 opt.wildmode = "noselect:full,full"
 
+-- Auto-open path suggestions only for `:e` / `:edit` command lines.
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  group = vim.api.nvim_create_augroup("EditCommandPathCompletion", { clear = true }),
+  pattern = ":",
+  callback = function()
+    local cmdline = vim.fn.getcmdline()
+    local cmd = cmdline:match("^%s*(%S+)%s+")
+    local edit_commands = { e = true, ed = true, edi = true, edit = true }
+    if cmd and edit_commands[cmd] then
+      pcall(vim.fn.wildtrigger)
+    end
+  end,
+  desc = "Auto-show path completion for :edit",
+})
+
 -- Default rounded border on floating windows (hover, signature help,
 -- diagnostics). The border frames the content so text no longer runs to the
 -- very edge — makes the LSP hover readable without any plugin.

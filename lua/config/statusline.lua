@@ -2,7 +2,7 @@
 -- mode-line, expanded to carry the genuinely useful stuff. One global bar
 -- (laststatus=3), laid out left → right:
 --
---   [MODE]  ⎇ branch +a ~c -d   file [+]            ● err ● warn  ft  enc  L:C  total  sels
+--   [MODE]  file [+]            sels  ● err ● warn  ⎇ branch +a ~c -d  ft  enc  L:C  total
 --
 -- Colors are read back out of the live colorscheme (Normal, Title, String, …)
 -- so this never hard-codes the ayu palette and never drifts when colors/ayu.lua
@@ -33,6 +33,18 @@ local function setup_highlights()
     gray    = color("Comment", "fg"),
   }
   local bar = color("StatusLine", "bg") -- the bar's own background
+  local status_fg = color("StatusLine", "fg")
+
+  if vim.g.colors_name == "jblow" then
+    p.fg = status_fg or p.bg
+    p.orange = status_fg or p.bg
+    p.green = status_fg or p.bg
+    p.magenta = status_fg or p.bg
+    p.red = "#5a1f1f"
+    p.blue = status_fg or p.bg
+    p.yellow = "#5a421f"
+    p.gray = "#5a4f3f"
+  end
 
   local hl = function(name, opts) vim.api.nvim_set_hl(0, name, opts) end
 
@@ -53,6 +65,8 @@ local function setup_highlights()
   hl("StModified", { fg = p.yellow,  bg = bar })
   hl("StMuted",    { fg = p.gray,    bg = bar })
   hl("StFiletype", { fg = p.blue,    bg = bar })
+  hl("StDiagError",{ fg = p.red,     bg = bar })
+  hl("StDiagWarn", { fg = p.yellow,  bg = bar })
 end
 
 -- ── Segments ────────────────────────────────────────────────────────────────
@@ -121,8 +135,8 @@ function M.diagnostics()
   local errors = #vim.diagnostic.get(buf, { severity = sev.ERROR })
   local warns = #vim.diagnostic.get(buf, { severity = sev.WARN })
   local out = {}
-  if errors > 0 then out[#out + 1] = "%#DiagnosticError#● " .. errors .. "%*" end
-  if warns > 0 then out[#out + 1] = "%#DiagnosticWarn#● " .. warns .. "%*" end
+  if errors > 0 then out[#out + 1] = "%#StDiagError#● " .. errors .. "%*" end
+  if warns > 0 then out[#out + 1] = "%#StDiagWarn#● " .. warns .. "%*" end
   return table.concat(out, " ")
 end
 
@@ -174,10 +188,11 @@ local function join(segs)
 end
 
 function _G.Statusline()
-  local left = join({ M.mode(), M.git(), M.file() })
+  local left = join({ M.mode(), M.file() })
   local right = join({
     M.selections(),
     M.diagnostics(),
+    M.git(),
     M.filetype(),
     M.encoding(),
     M.position(),
