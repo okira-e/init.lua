@@ -34,10 +34,16 @@ local function setup_highlights()
   }
   local bar = color("StatusLine", "bg") -- the bar's own background
   local status_fg = color("StatusLine", "fg")
+  local mode = {
+    orange = p.orange,
+    green = p.green,
+    magenta = p.magenta,
+    red = p.red,
+    blue = p.blue,
+  }
 
   if vim.g.colors_name == "jblow" then
     p.fg = status_fg or p.bg
-    p.orange = status_fg or p.bg
     p.green = status_fg or p.bg
     p.magenta = status_fg or p.bg
     p.red = "#5a1f1f"
@@ -49,12 +55,12 @@ local function setup_highlights()
   local hl = function(name, opts) vim.api.nvim_set_hl(0, name, opts) end
 
   -- Mode block: dark text on a saturated accent, one color per mode family.
-  hl("StItemNormal",  { fg = p.bg, bg = p.orange,  bold = true })
-  hl("StItemInsert",  { fg = p.bg, bg = p.green,   bold = true })
-  hl("StItemVisual",  { fg = p.bg, bg = p.magenta, bold = true })
-  hl("StItemReplace", { fg = p.bg, bg = p.red,     bold = true })
-  hl("StItemCommand", { fg = p.bg, bg = p.blue,    bold = true })
-  hl("StItemTerm",    { fg = p.bg, bg = p.green,   bold = true })
+  hl("StItemNormal",  { fg = p.bg, bg = mode.orange,  bold = true })
+  hl("StItemInsert",  { fg = p.bg, bg = mode.green,   bold = true })
+  hl("StItemVisual",  { fg = p.bg, bg = mode.magenta, bold = true })
+  hl("StItemReplace", { fg = p.bg, bg = mode.red,     bold = true })
+  hl("StItemCommand", { fg = p.bg, bg = mode.blue,    bold = true })
+  hl("StItemTerm",    { fg = p.bg, bg = mode.green,   bold = true })
 
   -- Inline segment colors (on the bar background).
   hl("StBranch",   { fg = p.magenta, bg = bar })

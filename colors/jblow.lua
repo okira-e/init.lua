@@ -16,7 +16,7 @@ local p = {
   keyword        = "#EAF4F4",
   type_builtin   = "#9FED9B",
 
-  surface        = "#0f2a1e",
+  surface        = "#08221d",
   panel_bg       = "#081a12",
   statusline_bg  = "#DBBD9A",
   active_line    = "#10301f",
