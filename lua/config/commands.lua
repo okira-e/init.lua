@@ -97,7 +97,36 @@ vim.api.nvim_create_user_command("Log", function()
     return
   end
 
-  snacks.picker.git_log()
+  snacks.picker.git_log({
+    cmd_args = { "--pretty=format:%h %s (%cs) <%an>" },
+    layout = {
+      preset = "default",
+      layout = {
+        width = 0.9,
+      },
+    },
+    format = function(item, picker)
+      local align = Snacks.picker.util.align
+      local ret = {}
+
+      ret[#ret + 1] = { picker.opts.icons.git.commit, "SnacksPickerGitCommit" }
+      ret[#ret + 1] = { align(item.commit or "HEAD", 8, { truncate = true }), "SnacksPickerGitCommit" }
+      ret[#ret + 1] = { " " }
+
+      if item.date then
+        ret[#ret + 1] = { align(item.date, 10), "SnacksPickerGitDate" }
+        ret[#ret + 1] = { " " }
+      end
+
+      Snacks.picker.highlight.extend(ret, Snacks.picker.format.commit_message(item, picker))
+
+      if item.author then
+        ret[#ret + 1] = { " <" .. item.author .. ">", "SnacksPickerGitAuthor" }
+      end
+
+      return ret
+    end,
+  })
 end, { desc = "Open git log picker" })
 
 vim.api.nvim_create_user_command("Lang", function(opts)
