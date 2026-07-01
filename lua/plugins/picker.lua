@@ -48,7 +48,7 @@ return {
       { "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers" },
       { "<leader>g", function() Snacks.picker.git_status() end, desc = "Git changed files" },
       { "<leader>/", global_search, desc = "Global search (grep)" },
-      { "<leader>t", function() Snacks.picker.grep({ search = "nocheckin" }) end, desc = "Find nocheckin markers" },
+      { "<leader>t", function() Snacks.picker.grep({ search = "nocheckin", regex = false }) end, desc = "Find nocheckin markers" },
       { "<leader>s", function() Snacks.picker.lsp_symbols() end, desc = "Document symbols" },
       { "<leader>S", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
       { "<leader>d", function() Snacks.picker.diagnostics_buffer() end, desc = "Diagnostics (file)" },
@@ -65,9 +65,14 @@ return {
         icons = {
           files = { enabled = false },
         },
+        matcher = {
+          ignorecase = true,
+          smartcase = true,
+        },
         sources = {
           files = { hidden = true },
-          grep = { hidden = true },
+          grep = { hidden = true, regex = false },
+          grep_buffers = { regex = false },
         },
         win = {
           input = {

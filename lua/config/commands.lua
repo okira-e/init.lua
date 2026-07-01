@@ -90,6 +90,16 @@ end
 vim.api.nvim_create_user_command("LspStop", lsp_stop, { desc = "Stop LSP clients attached to current buffer" })
 vim.api.nvim_create_user_command("LspRestart", lsp_restart, { desc = "Restart LSP clients attached to current buffer" })
 
+vim.api.nvim_create_user_command("Log", function()
+  local ok, snacks = pcall(require, "snacks")
+  if not ok or not snacks.picker then
+    vim.notify("Snacks picker is not available", vim.log.levels.ERROR)
+    return
+  end
+
+  snacks.picker.git_log()
+end, { desc = "Open git log picker" })
+
 vim.api.nvim_create_user_command("Lang", function(opts)
   vim.bo.filetype = opts.args
   vim.notify("Filetype set to " .. opts.args)
