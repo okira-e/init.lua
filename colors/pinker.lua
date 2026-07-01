@@ -1,0 +1,313 @@
+-- pinker - standalone Neovim port of ../helix/themes/pinker.toml.
+-- Dark theme with pink accents, green strings, purple functions, orange types.
+
+vim.cmd("highlight clear")
+if vim.fn.exists("syntax_on") == 1 then
+  vim.cmd("syntax reset")
+end
+vim.o.termguicolors = true
+vim.o.background = "dark"
+vim.g.colors_name = "pinker"
+
+local p = {
+  bg = "#1a1c2e",
+  fg = "#c8c0e0",
+  fg_bright = "#e8e0f8",
+  surface = "#1e2038",
+  panel_bg = "#161728",
+  active_line = "#1e2038",
+  selection = "#252840",
+  element_active = "#2e3155",
+  border = "#2a2d48",
+
+  muted = "#7878a0",
+  muted_op = "#9090b8",
+  linenr = "#4a4a6a",
+  linenr_active = "#8080a8",
+  invisible = "#4a4a6a",
+  indent_guide = "#5a5a80",
+  comment = "#6b6d8a",
+
+  pink = "#e8789a",
+  green = "#80cf9a",
+  cyan = "#80cfe0",
+  yellow = "#e8d880",
+  orange = "#e8a870",
+  purple = "#c090e8",
+  blue = "#8090e8",
+  warning = "#e8a870",
+}
+
+local hl = function(group, opts)
+  vim.api.nvim_set_hl(0, group, opts)
+end
+
+local groups = {
+  -- Editor UI
+  Normal = { fg = p.fg, bg = p.bg },
+  NormalNC = { fg = p.fg, bg = p.bg },
+  NormalFloat = { fg = p.fg, bg = p.surface },
+  FloatBorder = { fg = p.border, bg = p.surface },
+  FloatTitle = { fg = p.pink, bg = p.surface, bold = true },
+  Cursor = { fg = p.bg, bg = p.pink },
+  lCursor = { fg = p.bg, bg = p.purple },
+  TermCursor = { fg = p.bg, bg = p.pink },
+  CursorLine = { bg = p.active_line },
+  CursorColumn = { bg = p.active_line },
+  ColorColumn = { bg = p.active_line },
+  LineNr = { fg = p.linenr },
+  CursorLineNr = { fg = p.linenr_active },
+  SignColumn = { fg = p.linenr, bg = p.bg },
+  FoldColumn = { fg = p.linenr, bg = p.bg },
+  Folded = { fg = p.muted, bg = p.surface },
+  Visual = { bg = p.selection },
+  VisualNOS = { bg = p.selection },
+  MatchParen = { bg = p.active_line, bold = true },
+  Search = { fg = p.bg, bg = p.yellow },
+  IncSearch = { fg = p.bg, bg = p.pink },
+  CurSearch = { fg = p.bg, bg = p.pink },
+  Substitute = { fg = p.bg, bg = p.pink },
+  WinSeparator = { fg = p.border },
+  VertSplit = { fg = p.border },
+  EndOfBuffer = { fg = p.bg },
+  NonText = { fg = p.invisible },
+  Whitespace = { fg = p.invisible },
+  SpecialKey = { fg = p.muted },
+  Conceal = { fg = p.muted },
+  Directory = { fg = p.purple },
+  Title = { fg = p.yellow, bold = true },
+
+  -- Messages / cmdline
+  ModeMsg = { fg = p.fg },
+  MoreMsg = { fg = p.green },
+  Question = { fg = p.green },
+  ErrorMsg = { fg = p.pink, bold = true },
+  WarningMsg = { fg = p.warning },
+  MsgArea = { fg = p.fg },
+
+  -- Statusline / tabline
+  StatusLine = { fg = p.fg, bg = p.panel_bg },
+  StatusLineNC = { fg = p.muted, bg = p.panel_bg },
+  TabLine = { fg = p.muted, bg = p.panel_bg },
+  TabLineSel = { fg = p.fg, bg = p.bg, bold = true },
+  TabLineFill = { bg = p.panel_bg },
+  WinBar = { fg = p.fg, bg = p.bg },
+  WinBarNC = { fg = p.muted, bg = p.bg },
+
+  -- Popup menu
+  Pmenu = { fg = p.fg, bg = p.surface },
+  PmenuSel = { fg = p.fg_bright, bg = p.element_active },
+  PmenuSbar = { fg = p.muted, bg = p.surface },
+  PmenuThumb = { bg = p.muted },
+  WildMenu = { fg = p.fg_bright, bg = p.element_active },
+  QuickFixLine = { bg = p.active_line },
+
+  -- Base syntax
+  Comment = { fg = p.comment, italic = true },
+  Constant = { fg = p.orange },
+  String = { fg = p.green },
+  Character = { fg = p.green },
+  Number = { fg = p.orange },
+  Boolean = { fg = p.orange },
+  Float = { fg = p.orange },
+  Identifier = { fg = p.fg },
+  Function = { fg = p.purple },
+  Statement = { fg = p.pink },
+  Conditional = { fg = p.pink },
+  Repeat = { fg = p.pink },
+  Label = { fg = p.green },
+  Operator = { fg = p.muted_op },
+  Keyword = { fg = p.pink },
+  Exception = { fg = p.pink },
+  PreProc = { fg = p.pink },
+  Include = { fg = p.pink },
+  Define = { fg = p.pink },
+  Macro = { fg = p.purple },
+  PreCondit = { fg = p.pink },
+  Type = { fg = p.orange },
+  StorageClass = { fg = p.pink },
+  Structure = { fg = p.orange },
+  Typedef = { fg = p.orange },
+  Special = { fg = p.pink },
+  SpecialChar = { fg = p.cyan },
+  Tag = { fg = p.pink },
+  Delimiter = { fg = p.muted_op },
+  SpecialComment = { fg = p.comment, italic = true },
+  Debug = { fg = p.pink },
+  Underlined = { fg = p.cyan, underline = true },
+  Ignore = { fg = p.muted },
+  Error = { fg = p.pink },
+  Todo = { fg = p.yellow, bold = true },
+
+  -- Treesitter captures
+  ["@comment"] = { fg = p.comment, italic = true },
+  ["@comment.documentation"] = { fg = p.comment, italic = true },
+  ["@variable"] = { fg = p.fg },
+  ["@variable.builtin"] = { fg = p.pink, italic = true },
+  ["@variable.parameter"] = { fg = p.fg },
+  ["@variable.member"] = { fg = p.fg },
+  ["@property"] = { fg = p.fg },
+  ["@field"] = { fg = p.fg },
+
+  ["@constant"] = { fg = p.orange },
+  ["@constant.builtin"] = { fg = p.orange },
+  ["@constant.macro"] = { fg = p.orange },
+  ["@number"] = { fg = p.orange },
+  ["@number.float"] = { fg = p.orange },
+  ["@boolean"] = { fg = p.orange },
+
+  ["@string"] = { fg = p.green },
+  ["@string.regexp"] = { fg = p.cyan },
+  ["@string.escape"] = { fg = p.cyan },
+  ["@string.special"] = { fg = p.cyan },
+  ["@string.special.symbol"] = { fg = p.green },
+  ["@string.special.path"] = { fg = p.cyan },
+  ["@string.special.url"] = { fg = p.cyan, underline = true },
+  ["@character"] = { fg = p.green },
+  ["@character.special"] = { fg = p.cyan },
+
+  ["@function"] = { fg = p.purple },
+  ["@function.call"] = { fg = p.purple },
+  ["@function.builtin"] = { fg = p.purple },
+  ["@function.macro"] = { fg = p.purple },
+  ["@function.method"] = { fg = p.purple },
+  ["@function.method.call"] = { fg = p.purple },
+  ["@constructor"] = { fg = p.orange },
+  ["@attribute"] = { fg = p.yellow, italic = true },
+
+  ["@type"] = { fg = p.orange },
+  ["@type.builtin"] = { fg = p.purple },
+  ["@type.definition"] = { fg = p.orange },
+  ["@type.qualifier"] = { fg = p.pink },
+
+  ["@keyword"] = { fg = p.pink },
+  ["@keyword.function"] = { fg = p.pink },
+  ["@keyword.operator"] = { fg = p.muted_op },
+  ["@keyword.import"] = { fg = p.pink },
+  ["@keyword.storage"] = { fg = p.pink },
+  ["@keyword.repeat"] = { fg = p.pink },
+  ["@keyword.return"] = { fg = p.pink },
+  ["@keyword.conditional"] = { fg = p.pink },
+  ["@keyword.exception"] = { fg = p.pink },
+  ["@keyword.directive"] = { fg = p.pink },
+  ["@keyword.coroutine"] = { fg = p.pink },
+
+  ["@operator"] = { fg = p.muted_op },
+  ["@punctuation"] = { fg = p.muted_op },
+  ["@punctuation.delimiter"] = { fg = p.muted_op },
+  ["@punctuation.bracket"] = { fg = p.muted_op },
+  ["@punctuation.special"] = { fg = p.pink },
+
+  ["@module"] = { fg = p.fg },
+  ["@namespace"] = { fg = p.fg },
+  ["@label"] = { fg = p.green },
+
+  ["@tag"] = { fg = p.pink },
+  ["@tag.builtin"] = { fg = p.pink },
+  ["@tag.attribute"] = { fg = p.yellow, italic = true },
+  ["@tag.delimiter"] = { fg = p.muted_op },
+
+  -- Markup
+  ["@markup.heading"] = { fg = p.yellow, bold = true },
+  ["@markup.heading.1"] = { fg = p.yellow, bold = true },
+  ["@markup.heading.2"] = { fg = p.yellow, bold = true },
+  ["@markup.heading.3"] = { fg = p.yellow, bold = true },
+  ["@markup.heading.4"] = { fg = p.yellow, bold = true },
+  ["@markup.heading.5"] = { fg = p.yellow, bold = true },
+  ["@markup.heading.6"] = { fg = p.yellow, bold = true },
+  ["@markup.strong"] = { fg = p.pink, bold = true },
+  ["@markup.italic"] = { fg = p.pink, italic = true },
+  ["@markup.strikethrough"] = { strikethrough = true },
+  ["@markup.raw"] = { fg = p.yellow },
+  ["@markup.raw.block"] = { fg = p.yellow },
+  ["@markup.link"] = { fg = p.cyan },
+  ["@markup.link.label"] = { fg = p.cyan },
+  ["@markup.link.url"] = { fg = p.cyan, underline = true },
+  ["@markup.list"] = { fg = p.purple },
+  ["@markup.quote"] = { fg = p.muted, italic = true },
+  ["@markup.math"] = { fg = p.yellow },
+
+  ["@diff.plus"] = { fg = p.green },
+  ["@diff.minus"] = { fg = p.pink },
+  ["@diff.delta"] = { fg = p.blue },
+
+  -- LSP semantic tokens
+  ["@lsp.type.namespace"] = { link = "@module" },
+  ["@lsp.type.type"] = { link = "@type" },
+  ["@lsp.type.class"] = { link = "@type" },
+  ["@lsp.type.enum"] = { link = "@type" },
+  ["@lsp.type.interface"] = { link = "@type" },
+  ["@lsp.type.struct"] = { link = "@type" },
+  ["@lsp.type.typeParameter"] = { link = "@type" },
+  ["@lsp.type.parameter"] = { link = "@variable.parameter" },
+  ["@lsp.type.variable"] = { link = "@variable" },
+  ["@lsp.type.property"] = { link = "@property" },
+  ["@lsp.type.enumMember"] = { link = "@constant" },
+  ["@lsp.type.function"] = { link = "@function" },
+  ["@lsp.type.method"] = { link = "@function.method" },
+  ["@lsp.type.macro"] = { link = "@function.macro" },
+  ["@lsp.type.keyword"] = { link = "@keyword" },
+  ["@lsp.type.comment"] = { link = "@comment" },
+  ["@lsp.type.string"] = { link = "@string" },
+  ["@lsp.type.number"] = { link = "@number" },
+  ["@lsp.type.operator"] = { link = "@operator" },
+  ["@lsp.type.decorator"] = { link = "@attribute" },
+
+  -- Diagnostics
+  DiagnosticError = { fg = p.pink },
+  DiagnosticWarn = { fg = p.warning },
+  DiagnosticInfo = { fg = p.cyan },
+  DiagnosticHint = { fg = p.muted },
+  DiagnosticOk = { fg = p.green },
+  DiagnosticVirtualTextError = { fg = p.pink },
+  DiagnosticVirtualTextWarn = { fg = p.warning },
+  DiagnosticVirtualTextInfo = { fg = p.cyan },
+  DiagnosticVirtualTextHint = { fg = p.muted },
+  DiagnosticUnderlineError = { undercurl = true, sp = p.pink },
+  DiagnosticUnderlineWarn = { undercurl = true, sp = p.warning },
+  DiagnosticUnderlineInfo = { undercurl = true, sp = p.cyan },
+  DiagnosticUnderlineHint = { undercurl = true, sp = p.muted },
+  DiagnosticUnnecessary = { fg = p.muted },
+  DiagnosticDeprecated = { strikethrough = true },
+
+  LspInlayHint = { fg = p.muted, bg = p.bg, italic = true },
+  LspReferenceText = { bg = p.active_line },
+  LspReferenceRead = { bg = p.active_line },
+  LspReferenceWrite = { bg = p.active_line },
+
+  -- vimdiff
+  DiffAdd = { fg = p.green, bg = p.bg },
+  DiffChange = { fg = p.blue, bg = p.bg },
+  DiffDelete = { fg = p.pink, bg = p.bg },
+  DiffText = { bg = p.active_line },
+
+  -- Spell
+  SpellBad = { undercurl = true, sp = p.pink },
+  SpellCap = { undercurl = true, sp = p.warning },
+  SpellRare = { undercurl = true, sp = p.purple },
+  SpellLocal = { undercurl = true, sp = p.cyan },
+
+  -- gitsigns
+  GitSignsAdd = { fg = p.green },
+  GitSignsChange = { fg = p.blue },
+  GitSignsDelete = { fg = p.pink },
+  GitSignsTopdelete = { fg = p.pink },
+  GitSignsChangedelete = { fg = p.purple },
+  GitSignsUntracked = { fg = p.muted },
+
+  -- snacks picker UI
+  SnacksNormal = { link = "NormalFloat" },
+  SnacksWinBorder = { link = "FloatBorder" },
+  SnacksPickerBorder = { link = "FloatBorder" },
+  SnacksPickerTitle = { fg = p.muted, bg = p.surface, bold = true },
+  SnacksPickerDir = { fg = p.muted },
+  SnacksPickerFile = { fg = p.fg },
+  SnacksPickerMatch = { fg = p.pink, bold = true },
+  SnacksPickerPrompt = { fg = p.pink },
+  SnacksPickerCursorLine = { bg = p.active_line },
+  SnacksPickerToggle = { fg = p.pink, bg = p.element_active },
+}
+
+for group, opts in pairs(groups) do
+  hl(group, opts)
+end
