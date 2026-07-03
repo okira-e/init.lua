@@ -1,0 +1,14 @@
+{
+  "Logging": {
+    "prefix": "cslog",
+    "body": [
+      "fmt.printf(\"${1}: %v\\n\", ${2})"
+    ]
+  },
+  "Debug": {
+    "prefix": "panic",
+    "body": [
+      "if true do panic(fmt.aprintf(\"${1}: %v\\n\", ${2}))"
+    ]
+  }
+}

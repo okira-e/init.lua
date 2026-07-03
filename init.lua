@@ -7,6 +7,7 @@ require("config.options")
 require("config.statusline")
 require("config.keymaps")
 require("config.commands")
+require("config.snippets")
 require("config.lazy")
 
 -- Active colorscheme (standalone, defined in colors/ayu.lua). Applied after
