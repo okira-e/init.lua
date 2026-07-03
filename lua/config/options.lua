@@ -118,3 +118,31 @@ opt.showmode = false
 -- them. New files get LF everywhere (including Windows) for consistent repos.
 opt.fileformats = "unix,dos"
 opt.fileformat = "unix"
+
+-- Spell checking. Uses Neovim's built-in speller, so no plugin and no lockfile
+-- entry. Two deliberate properties:
+--
+--   * Misspellings are highlighted via the SpellBad/SpellCap syntax groups, not
+--     the diagnostics system — so they never appear under <leader>d, which only
+--     reads vim.diagnostic. That separation is free; nothing here suppresses it.
+--   * The personal word list (added with `zg`) is pinned to Neovim's global data
+--     dir instead of the default (the config's own spell/ dir). This keeps `zg`
+--     from ever writing a spell file into whatever project you're editing —
+--     including this config repo.
+--
+-- Built-in keys once spell is on: ]s/[s jump between misspellings, z= lists
+-- suggestions, zg marks a word good, zw marks it wrong.
+-- "en" (not "en_us"): the generic English dictionary ships bundled with Neovim,
+-- so it loads with no download. "en_us" would require fetching a separate .spl
+-- and errors with E756 if that download is declined or unavailable offline.
+opt.spelllang = "en"
+opt.spelloptions = "camel" -- treat CamelCase segments as separate words
+local spellfile = vim.fn.stdpath("data") .. "/spell/en.utf-8.add"
+vim.fn.mkdir(vim.fs.dirname(spellfile), "p")
+opt.spellfile = spellfile
+
+-- Enable spell everywhere. In buffers with Treesitter highlighting, checking is
+-- limited to @spell regions (comments, strings, prose) and identifiers are left
+-- alone; in buffers without it, all words are checked. Turn it off per-buffer
+-- with `:setlocal nospell` when it gets noisy.
+opt.spell = true

@@ -98,6 +98,18 @@ end
 map({ "n", "x" }, "<C-l>", function() incremental_select(1) end, { desc = "Expand selection" })
 map({ "n", "x" }, "<C-h>", function() incremental_select(-1) end, { desc = "Shrink selection" })
 
+-- Disable the right mouse button entirely (no popup menu, no selection extend).
+-- Every right-click variant — single/double/triple/quad, drag, release — is
+-- mapped to <Nop> across the modes where the mouse is live. Left-click and
+-- scrolling are untouched.
+local RIGHT_MOUSE = {
+  "<RightMouse>", "<2-RightMouse>", "<3-RightMouse>", "<4-RightMouse>",
+  "<RightDrag>", "<RightRelease>",
+}
+for _, key in ipairs(RIGHT_MOUSE) do
+  map({ "n", "i", "v", "x", "s", "o", "c", "t" }, key, "<Nop>", { desc = "Disable right-click" })
+end
+
 -- Clear search highlight on Esc.
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 

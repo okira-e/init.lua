@@ -275,7 +275,7 @@ local groups = {
   DiffText   = { bg = diff.text },
 
   -- ── Spell ─────────────────────────────────────────────────────────────────
-  SpellBad   = { undercurl = true, sp = p.red },
+  SpellBad   = { undercurl = true, sp = p.green },
   SpellCap   = { undercurl = true, sp = p.yellow },
   SpellRare  = { undercurl = true, sp = p.magenta },
   SpellLocal = { undercurl = true, sp = p.blue },
