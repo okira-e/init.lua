@@ -68,7 +68,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Keep some context around the cursor.
-opt.scrolloff = 5
+opt.scrolloff = 8
 opt.sidescrolloff = 8
 
 -- Keep normal yanks in Neovim registers. Use explicit mappings/commands for
@@ -77,6 +77,33 @@ opt.clipboard = ""
 
 -- Persistent undo across sessions.
 opt.undofile = true
+
+-- Create parent directories automatically for new file buffers, so
+-- `:edit path/to/new-file` is enough even when `path/to` does not exist yet.
+local function ensure_parent_dir(args)
+  if vim.bo[args.buf].buftype ~= "" then
+    return
+  end
+
+  local file = vim.api.nvim_buf_get_name(args.buf)
+  if file == "" or file:match("^%w[%w+.-]*://") then
+    return
+  end
+
+  local dir = vim.fs.dirname(file)
+  if dir and vim.fn.isdirectory(dir) == 0 then
+    local ok, err = pcall(vim.fn.mkdir, dir, "p")
+    if not ok then
+      vim.notify(("Could not create directory %s: %s"):format(dir, err), vim.log.levels.ERROR)
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufWritePre" }, {
+  group = vim.api.nvim_create_augroup("AutoCreateParentDirs", { clear = true }),
+  callback = ensure_parent_dir,
+  desc = "Create parent directories for new files",
+})
 
 -- Snappier UI / git signs updates; shorter mapped-sequence timeout.
 opt.updatetime = 250
