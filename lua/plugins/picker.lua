@@ -39,6 +39,13 @@ local function global_search()
   })
 end
 
+local all_lsp_symbol_kinds = {
+  default = true,
+  lua = true,
+  markdown = true,
+  help = true,
+}
+
 return {
   {
     "folke/snacks.nvim",
@@ -49,8 +56,8 @@ return {
       { "<leader>g", function() Snacks.picker.git_status() end, desc = "Git changed files" },
       { "<leader>/", global_search, desc = "Global search (grep)" },
       { "<leader>t", function() Snacks.picker.grep({ search = "nocheckin", regex = false }) end, desc = "Find nocheckin markers" },
-      { "<leader>s", function() Snacks.picker.lsp_symbols() end, desc = "Document symbols" },
-      { "<leader>S", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace symbols" },
+      { "<leader>s", function() Snacks.picker.lsp_symbols({ filter = all_lsp_symbol_kinds }) end, desc = "Document symbols" },
+      { "<leader>S", function() Snacks.picker.lsp_workspace_symbols({ filter = all_lsp_symbol_kinds }) end, desc = "Workspace symbols" },
       { "<leader>d", function() Snacks.picker.diagnostics_buffer() end, desc = "Diagnostics (file)" },
       { "<leader>D", function() Snacks.picker.diagnostics() end, desc = "Diagnostics (project)" },
       -- Left sidebar file tree (snacks explorer, native sidebar layout). Type to
