@@ -40,12 +40,33 @@ local function write_all()
   vim.notify(("WriteAll: saved %d file(s)"):format(count))
 end
 
+-- :CloseOthers — delete every listed buffer except the current one. This uses a
+-- normal :bdelete, so modified buffers are not force-closed.
+local function close_others()
+  local current = vim.api.nvim_get_current_buf()
+  local closed, skipped = 0, 0
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= current and vim.bo[buf].buflisted then
+      local ok = pcall(vim.cmd, ("bdelete %d"):format(buf))
+      if ok then
+        closed = closed + 1
+      else
+        skipped = skipped + 1
+      end
+    end
+  end
+
+  vim.notify(("CloseOthers: closed %d buffer(s), skipped %d"):format(closed, skipped))
+end
+
 vim.api.nvim_create_user_command("Reload", reload, { desc = "Reload current file from disk (discard changes)" })
 vim.api.nvim_create_user_command("R", reload, { desc = "Alias for :Reload" })
 vim.api.nvim_create_user_command("ReloadAll", reload_all, { desc = "Reload all open project files from disk (discard changes)" })
 vim.api.nvim_create_user_command("RA", reload_all, { desc = "Alias for :ReloadAll" })
 vim.api.nvim_create_user_command("WriteAll", write_all, { desc = "Save all modified project files" })
 vim.api.nvim_create_user_command("WA", write_all, { desc = "Alias for :WriteAll" })
+vim.api.nvim_create_user_command("CloseOthers", close_others, { desc = "Close all listed buffers except the current one" })
 
 local last_stopped_lsp_names = {}
 

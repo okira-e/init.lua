@@ -95,6 +95,7 @@ Current-line diagnostics show in a top-right float instead of virtual lines.
 | `:Reload` / `:R`     | Reload current file from disk, discarding local changes         |
 | `:ReloadAll` / `:RA` | Reload all open project files from disk                         |
 | `:WriteAll` / `:WA`  | Save all modified project files                                 |
+| `:CloseOthers`       | Close all listed buffers except the current one                 |
 | `:LspStop`           | Stop LSP clients attached to current buffer                     |
 | `:LspRestart`        | Restart LSP clients attached to current buffer                  |
 | `:Lang <filetype>`   | Set current buffer filetype                                     |
