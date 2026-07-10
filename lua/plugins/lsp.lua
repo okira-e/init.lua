@@ -134,10 +134,15 @@ return {
         vim.bo[diagnostic_float_buf].bufhidden = "wipe"
         vim.api.nvim_buf_set_lines(diagnostic_float_buf, 0, -1, false, lines)
 
+        local winline = vim.fn.winline()
+        local near_top = winline > 0 and winline <= math.max(8, #lines + 4)
+        local anchor = near_top and "SE" or "NE"
+        local row = near_top and (vim.o.lines - vim.o.cmdheight - 1) or 1
+
         diagnostic_float_win = vim.api.nvim_open_win(diagnostic_float_buf, false, {
           relative = "editor",
-          anchor = "NE",
-          row = 1,
+          anchor = anchor,
+          row = row,
           col = vim.o.columns - 1,
           width = width,
           height = #lines,
