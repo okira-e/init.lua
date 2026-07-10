@@ -5,7 +5,8 @@
         "language": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
         "path": "./javascript.json"
       },
-      { "language": ["odin"], "path": "./odin.json" }
+      { "language": ["odin"], "path": "./odin.json" },
+      { "language": ["rust"], "path": "./rust.json" }
     ]
   }
 }

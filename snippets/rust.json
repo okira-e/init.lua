@@ -1,0 +1,15 @@
+{
+  "Logging": {
+    "prefix": "cslog",
+    "body": [
+      "println!(\"${1}: {${2}}\", ${3${1}})"
+    ]
+  },
+  "Debug": {
+    "prefix": "debug",
+    "body": [
+      "debug!(\"${1}:\", ${2})"
+    ]
+  }
+}
+
