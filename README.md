@@ -83,6 +83,7 @@ Current-line diagnostics show in a top-right float instead of virtual lines.
 | `<leader>N`                                      | Add cursor at previous match |
 | `<leader>x`                                      | Skip next match              |
 | `<leader>A`                                      | Add cursor at every match    |
+| `s` (visual mode)                                | Prompt for a regex, add a cursor at each match _within the selection_ (Helix `s`) |
 | `<C-j>`                                          | Add cursor on line below     |
 | `<C-k>`                                          | Add cursor on line above     |
 | `<Left>` / `<Right>` while multicursor is active | Previous / next cursor       |

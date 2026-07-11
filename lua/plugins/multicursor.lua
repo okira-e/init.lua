@@ -25,6 +25,11 @@ return {
       { "<leader>N", function() require("multicursor-nvim").matchAddCursor(-1) end, mode = { "n", "x" }, desc = "MC: add cursor at prev match" },
       { "<leader>x", function() require("multicursor-nvim").matchSkipCursor(1) end, mode = { "n", "x" }, desc = "MC: skip to next match" },
       { "<leader>A", function() require("multicursor-nvim").matchAllAddCursors() end, mode = { "n", "x" }, desc = "MC: cursor on every match" },
+      -- Helix `s`: over a visual selection, prompt for a regex and drop a cursor
+      -- on each match *within the selection only*. Visual mode only, so normal
+      -- mode `s` keeps its default. matchCursors() with no arg prompts in the
+      -- cmdline (like Helix's select overlay).
+      { "s", function() require("multicursor-nvim").matchCursors() end, mode = "x", desc = "MC: cursor per regex match in selection" },
     },
     config = function()
       local mc = require("multicursor-nvim")
