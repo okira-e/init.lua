@@ -168,8 +168,8 @@ local spellfile = vim.fn.stdpath("data") .. "/spell/en.utf-8.add"
 vim.fn.mkdir(vim.fs.dirname(spellfile), "p")
 opt.spellfile = spellfile
 
--- Enable spell everywhere. In buffers with Treesitter highlighting, checking is
--- limited to @spell regions (comments, strings, prose) and identifiers are left
--- alone; in buffers without it, all words are checked. Turn it off per-buffer
--- with `:setlocal nospell` when it gets noisy.
-opt.spell = true
+-- Off by default; toggle it on with :Spell (see lua/config/commands.lua). When
+-- enabled, buffers with Treesitter highlighting only check @spell regions
+-- (comments, strings, prose) and leave identifiers alone; buffers without it
+-- check all words.
+opt.spell = false

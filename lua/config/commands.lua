@@ -68,6 +68,13 @@ vim.api.nvim_create_user_command("WriteAll", write_all, { desc = "Save all modif
 vim.api.nvim_create_user_command("WA", write_all, { desc = "Alias for :WriteAll" })
 vim.api.nvim_create_user_command("CloseOthers", close_others, { desc = "Close all listed buffers except the current one" })
 
+-- :Spell — toggle spell checking (off by default, see lua/config/options.lua).
+-- Sets the global option so the state carries to windows opened afterward.
+vim.api.nvim_create_user_command("Spell", function()
+  vim.o.spell = not vim.o.spell
+  vim.notify("Spell checking " .. (vim.o.spell and "on" or "off"))
+end, { desc = "Toggle spell checking" })
+
 local last_stopped_lsp_names = {}
 
 local function lsp_client_names()
