@@ -75,6 +75,25 @@ vim.api.nvim_create_user_command("Spell", function()
   vim.notify("Spell checking " .. (vim.o.spell and "on" or "off"))
 end, { desc = "Toggle spell checking" })
 
+-- :Compare — vertical diff. With one file, diffs it against the current buffer
+-- in a split. With two files, opens them against each other in a new tab (so the
+-- current buffer is left alone). File paths are completed as you type.
+vim.api.nvim_create_user_command("Compare", function(o)
+  local files = o.fargs
+  if #files == 1 then
+    vim.cmd("vertical diffsplit " .. vim.fn.fnameescape(files[1]))
+  elseif #files == 2 then
+    vim.cmd("tabedit " .. vim.fn.fnameescape(files[1]))
+    vim.cmd("vertical diffsplit " .. vim.fn.fnameescape(files[2]))
+  else
+    vim.notify("Compare: give one file (vs current buffer) or two files", vim.log.levels.ERROR)
+  end
+end, {
+  nargs = "*",
+  complete = "file",
+  desc = "Vertical diff: one file vs current buffer, or two files against each other",
+})
+
 local last_stopped_lsp_names = {}
 
 local function lsp_client_names()
