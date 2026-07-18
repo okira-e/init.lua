@@ -68,6 +68,26 @@ vim.api.nvim_create_user_command("WriteAll", write_all, { desc = "Save all modif
 vim.api.nvim_create_user_command("WA", write_all, { desc = "Alias for :WriteAll" })
 vim.api.nvim_create_user_command("CloseOthers", close_others, { desc = "Close all listed buffers except the current one" })
 
+-- :Tab [width] — force the current buffer to indent with literal tab
+-- characters. Useful when guess-indent picks spaces for a file that should use
+-- tabs. Defaults to width 4 to match config/options.lua.
+vim.api.nvim_create_user_command("Tab", function(opts)
+  local width = opts.args == "" and 4 or tonumber(opts.args)
+  if not width or width < 1 then
+    vim.notify("Tab: width must be a positive number", vim.log.levels.ERROR)
+    return
+  end
+
+  vim.bo.expandtab = false
+  vim.bo.tabstop = width
+  vim.bo.shiftwidth = width
+  vim.bo.softtabstop = 0
+  vim.notify(("Indentation: tabs, width %d"):format(width))
+end, {
+  nargs = "?",
+  desc = "Force current buffer to use literal tab indentation",
+})
+
 -- :Spell — toggle spell checking (off by default, see lua/config/options.lua).
 -- Sets the global option so the state carries to windows opened afterward.
 vim.api.nvim_create_user_command("Spell", function()

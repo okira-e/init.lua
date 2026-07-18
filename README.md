@@ -100,6 +100,7 @@ Current-line diagnostics show in a top-right float instead of virtual lines.
 | `:LspStop`           | Stop LSP clients attached to current buffer                     |
 | `:LspRestart`        | Restart LSP clients attached to current buffer                  |
 | `:Lang <filetype>`   | Set current buffer filetype                                     |
+| `:Tab [width]`       | Force current buffer to use literal tab indentation             |
 | `:Spell`             | Toggle spell checking (off by default)                          |
 | `:Compare <a> [b]`   | Vertical diff: one file vs current buffer, or two files (path completion) |
 | `:YankDiagnostic`    | Copy current-line diagnostics to clipboard and unnamed register |

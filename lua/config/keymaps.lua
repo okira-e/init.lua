@@ -127,6 +127,12 @@ map({ "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev matc
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- Bash-style command-line history search. In cmdline mode, <Up>/<Down> already
+-- search history entries that start with the current command line; make the
+-- familiar Ctrl-p/Ctrl-n keys use that same prefix-filtered history.
+map("c", "<C-p>", "<Up>", { desc = "Previous matching command-line history" })
+map("c", "<C-n>", "<Down>", { desc = "Next matching command-line history" })
+
 -- Diagnostics: jump between them. Current-line diagnostics appear in the
 -- top-right float configured with the LSP.
 map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Prev diagnostic" })
