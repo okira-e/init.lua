@@ -19,7 +19,13 @@ return {
       },
       auto_install = true,
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = {
+        enable = true,
+        -- The legacy Treesitter indenter returns column 0 for new lines in
+        -- TypeScript blocks on Neovim 0.12. Use Neovim's dedicated
+        -- GetTypescriptIndent() implementation for TS/TSX instead.
+        disable = { "typescript", "tsx" },
+      },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
