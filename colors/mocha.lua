@@ -151,8 +151,8 @@ local groups = {
   ["@variable"]              = { fg = p.text },
   ["@variable.builtin"]      = { fg = p.red },
   ["@variable.parameter"]    = { fg = p.maroon },
-  ["@variable.member"]       = { fg = p.teal },
-  ["@property"]              = { fg = p.teal },
+  ["@variable.member"]       = { fg = p.text },
+  ["@property"]              = { fg = p.text },
   ["@field"]                 = { fg = p.teal },
 
   ["@constant"]         = { fg = p.peach },
