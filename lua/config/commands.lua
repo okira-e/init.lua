@@ -205,6 +205,20 @@ end, {
   desc = "Set current buffer filetype",
 })
 
+-- :YankFile — copy the current file's path, relative to the working directory,
+-- to the clipboard and unnamed register.
+vim.api.nvim_create_user_command("YankFile", function()
+  local path = vim.fn.expand("%:.")
+  if path == "" then
+    vim.notify("Current buffer has no file name", vim.log.levels.INFO)
+    return
+  end
+
+  vim.fn.setreg("+", path)
+  vim.fn.setreg('"', path)
+  vim.notify("Yanked file path: " .. path)
+end, { desc = "Yank current file path relative to working directory" })
+
 -- :YankDiagnostic — copy the diagnostic message(s) on the current line to the
 -- clipboard (and unnamed register), e.g. to paste into a search. Helix's
 -- yank-diagnostic equivalent.

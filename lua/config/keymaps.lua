@@ -133,6 +133,15 @@ map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true
 map("c", "<C-p>", "<Up>", { desc = "Previous matching command-line history" })
 map("c", "<C-n>", "<Down>", { desc = "Next matching command-line history" })
 
+-- Re-run the most recent Ex command when submitting an empty ":" prompt.
+-- Searches and non-empty command lines keep their normal Enter behavior.
+map("c", "<CR>", function()
+  if vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() == "" and vim.fn.histnr("cmd") > 0 then
+    return "<Up><CR>"
+  end
+  return "<CR>"
+end, { expr = true, desc = "Repeat last Ex command from an empty prompt" })
+
 -- Diagnostics: jump between them. Current-line diagnostics appear in the
 -- top-right float configured with the LSP.
 map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Prev diagnostic" })

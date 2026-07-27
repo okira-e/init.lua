@@ -4,17 +4,18 @@ Leader is `Space`.
 
 ## Core
 
-| Key                | Action                                         |
-| ------------------ | ---------------------------------------------- |
-| `<leader>w`        | Save current buffer                            |
-| `<leader>l`        | Format file                                    |
-| `<C-q>`            | Close buffer, keep window open                 |
-| `Y` in visual mode | Yank selection to system clipboard             |
-| `<Esc>`            | Clear search highlight                         |
-| `j` / `k`          | Move by visual lines when lines wrap           |
-| `n` / `N`          | Next / previous search match, direction-stable |
-| `<C-l>`            | Expand Treesitter/LSP selection                |
-| `<C-h>`            | Shrink Treesitter/LSP selection                |
+| Key                        | Action                                         |
+| -------------------------- | ---------------------------------------------- |
+| `<leader>w`                | Save current buffer                            |
+| `<leader>l`                | Format file                                    |
+| `<C-q>`                    | Close buffer, keep window open                 |
+| `Y` in visual mode         | Yank selection to system clipboard             |
+| `<Esc>`                    | Clear search highlight                         |
+| `j` / `k`                  | Move by visual lines when lines wrap           |
+| `n` / `N`                  | Next / previous search match, direction-stable |
+| `<C-l>`                    | Expand Treesitter/LSP selection                |
+| `<C-h>`                    | Shrink Treesitter/LSP selection                |
+| `<CR>` on empty `:` prompt | Repeat the most recent Ex command              |
 
 ## Pickers
 
@@ -77,33 +78,34 @@ Current-line diagnostics show in a top-right float instead of virtual lines.
 
 ## Multicursor
 
-| Key                                              | Action                       |
-| ------------------------------------------------ | ---------------------------- |
-| `<C-g>`                                          | Add cursor at next match     |
-| `<leader>N`                                      | Add cursor at previous match |
-| `<leader>x`                                      | Skip next match              |
-| `<leader>A`                                      | Add cursor at every match    |
+| Key                                              | Action                                                                            |
+| ------------------------------------------------ | --------------------------------------------------------------------------------- |
+| `<C-g>`                                          | Add cursor at next match                                                          |
+| `<leader>N`                                      | Add cursor at previous match                                                      |
+| `<leader>x`                                      | Skip next match                                                                   |
+| `<leader>A`                                      | Add cursor at every match                                                         |
 | `s` (visual mode)                                | Prompt for a regex, add a cursor at each match _within the selection_ (Helix `s`) |
-| `<C-j>`                                          | Add cursor on line below     |
-| `<C-k>`                                          | Add cursor on line above     |
-| `<Left>` / `<Right>` while multicursor is active | Previous / next cursor       |
-| `<Esc>` while multicursor is active              | Disable or clear cursors     |
+| `<C-j>`                                          | Add cursor on line below                                                          |
+| `<C-k>`                                          | Add cursor on line above                                                          |
+| `<Left>` / `<Right>` while multicursor is active | Previous / next cursor                                                            |
+| `<Esc>` while multicursor is active              | Disable or clear cursors                                                          |
 
 ## Commands
 
-| Command              | Action                                                          |
-| -------------------- | --------------------------------------------------------------- |
-| `:Reload` / `:R`     | Reload current file from disk, discarding local changes         |
-| `:ReloadAll` / `:RA` | Reload all open project files from disk                         |
-| `:WriteAll` / `:WA`  | Save all modified project files                                 |
-| `:CloseOthers`       | Close all listed buffers except the current one                 |
-| `:LspStop`           | Stop LSP clients attached to current buffer                     |
-| `:LspRestart`        | Restart LSP clients attached to current buffer                  |
-| `:Lang <filetype>`   | Set current buffer filetype                                     |
-| `:Tab [width]`       | Force current buffer to use literal tab indentation             |
-| `:Spell`             | Toggle spell checking (off by default)                          |
+| Command              | Action                                                                    |
+| -------------------- | ------------------------------------------------------------------------- |
+| `:Reload` / `:R`     | Reload current file from disk, discarding local changes                   |
+| `:ReloadAll` / `:RA` | Reload all open project files from disk                                   |
+| `:WriteAll` / `:WA`  | Save all modified project files                                           |
+| `:CloseOthers`       | Close all listed buffers except the current one                           |
+| `:LspStop`           | Stop LSP clients attached to current buffer                               |
+| `:LspRestart`        | Restart LSP clients attached to current buffer                            |
+| `:Lang <filetype>`   | Set current buffer filetype                                               |
+| `:Tab [width]`       | Force current buffer to use literal tab indentation                       |
+| `:Spell`             | Toggle spell checking (off by default)                                    |
 | `:Compare <a> [b]`   | Vertical diff: one file vs current buffer, or two files (path completion) |
-| `:YankDiagnostic`    | Copy current-line diagnostics to clipboard and unnamed register |
+| `:YankFile`          | Copy relative file path to clipboard and unnamed register                 |
+| `:YankDiagnostic`    | Copy current-line diagnostics to clipboard and unnamed register           |
 
 ## Built-In Behavior Notes
 

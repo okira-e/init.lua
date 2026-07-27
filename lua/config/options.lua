@@ -115,22 +115,23 @@ opt.mouse = "a"
 -- Native completion menu behavior (used by the built-in LSP completion).
 opt.completeopt = "menu,menuone,noselect"
 
--- Command-line completion: show matches without inserting the only match.
-opt.wildmode = "noselect:full,full"
+-- Native command-line completion. Tab first extends the longest common path and
+-- opens the menu; further Tabs cycle matches. While the menu is visible,
+-- Up/Down and the Ctrl-p/Ctrl-n mappings in keymaps.lua navigate it.
+opt.wildmode = "longest:full,full"
+opt.wildoptions = "pum,tagfile"
+opt.pumheight = 12
 
--- Auto-open path suggestions only for `:e` / `:edit` command lines.
-vim.api.nvim_create_autocmd("CmdlineChanged", {
-  group = vim.api.nvim_create_augroup("EditCommandPathCompletion", { clear = true }),
-  pattern = ":",
-  callback = function()
-    local cmdline = vim.fn.getcmdline()
-    local cmd = cmdline:match("^%s*(%S+)%s+")
-    local edit_commands = { e = true, ed = true, edi = true, edit = true }
-    if cmd and edit_commands[cmd] then
-      pcall(vim.fn.wildtrigger)
-    end
-  end,
-  desc = "Auto-show path completion for :edit",
+-- Let :find search recursively from the working directory without descending
+-- into dependency, VCS, or generated-output directories.
+opt.path:append("**")
+opt.wildignore:append({
+  "*/.git/*",
+  "*/node_modules/*",
+  "*/dist/*",
+  "*/build/*",
+  "*/target/*",
+  "*/.next/*",
 })
 
 -- Default rounded border on floating windows (hover, signature help,
