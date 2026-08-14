@@ -1,0 +1,9 @@
+{
+  "Logging": {
+    "prefix": "cslog",
+    "body": [
+      "printf(\"${1}:%${2}\\n\", ${3});"
+    ]
+  }
+}
+

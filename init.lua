@@ -13,3 +13,12 @@ require("config.lazy")
 -- Active colorscheme (standalone, defined in colors/ayu.lua). Applied after
 -- plugins so it has the final say over any default highlight groups they set.
 vim.cmd.colorscheme("ayu")
+
+-- Transparent background.
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight SignColumn guibg=NONE ctermbg=NONE
+  highlight FoldColumn guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+]])

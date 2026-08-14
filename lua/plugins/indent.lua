@@ -1,9 +1,8 @@
 -- Smart per-buffer indentation detection. On opening a file, guess-indent
 -- inspects its existing indentation and sets expandtab/shiftwidth/tabstop to
--- match the project. If a file uses spaces, it switches to spaces at the
--- detected width; if it uses tabs, it keeps real tabs. When nothing can be
--- detected (new/empty file), the defaults in config/options.lua stand:
--- real tabs, 4 wide.
+-- match the project. Space-indented files use their detected width. Go, Odin,
+-- and Masa are excluded because config/options.lua deliberately enforces tabs
+-- for them; every other filetype keeps space insertion enabled.
 return {
   {
     "NMAC427/guess-indent.nvim",
@@ -13,9 +12,10 @@ return {
     -- is tiny) guarantees its autocmd exists before any buffer is read.
     lazy = false,
     opts = {
-      -- Keep our tab-width-4 default for tab-indented files rather than
-      -- forcing tabstop to something else.
-      on_tab_options = { expandtab = false },
+      filetype_exclude = { "netrw", "tutor", "go", "odin", "masa" },
+      -- Existing literal tabs outside the excluded languages do not change the
+      -- editing policy: newly inserted indentation still uses spaces.
+      on_tab_options = { expandtab = true },
       on_space_options = {
         expandtab = true,
         tabstop = "detected",

@@ -42,15 +42,27 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
 
--- Indentation. Default: real tab characters displayed 4 columns wide. When a file
--- uses spaces (or a different width), guess-indent detects it per-buffer and
--- overrides these on open. See lua/plugins/indent.lua.
-opt.expandtab = false
+-- Indentation. Default to four spaces; Go, Odin, and Masa use literal tabs.
+-- guess-indent can still detect a different style in existing files. See
+-- lua/plugins/indent.lua.
+opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.autoindent = true
 opt.smartindent = true
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("TabIndentedLanguages", { clear = true }),
+  pattern = { "go", "odin", "masa" },
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 0
+  end,
+  desc = "Use literal tabs for Go, Odin, and Masa",
+})
 
 -- Do not continue comments automatically when pressing Enter, o, or O on a
 -- commented line. Filetype plugins can reset this per-buffer, so keep it enforced.
