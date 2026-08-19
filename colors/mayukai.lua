@@ -35,7 +35,7 @@ local p = {
   variable_member = "#f28779",
   type = "#ff8f40",
   variant = "#ff8f40",
-  keyword = "#ffa759",
+  keyword = "#f07178",
   keyword_control = "#f07178",
   operator = "#ff6188",
   func = "#ffcc66",
@@ -204,7 +204,7 @@ local groups = {
 
   ["@keyword"] = { fg = p.keyword },
   ["@keyword.function"] = { fg = p.keyword_control, italic = true },
-  ["@keyword.operator"] = { fg = p.operator },
+  ["@keyword.operator"] = { fg = p.keyword_control },
   ["@keyword.import"] = { fg = p.keyword },
   ["@keyword.storage"] = { fg = p.keyword, italic = true },
   ["@keyword.repeat"] = { fg = p.keyword_control },
