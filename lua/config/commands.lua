@@ -3,7 +3,10 @@
 -- :Reload (alias :R) — re-read the current file from disk, discarding local
 -- changes (== :e!).
 local function reload()
-  vim.cmd("edit!")
+  -- `:edit!` can trigger Neovim's W325 notification when another live Nvim
+  -- owns a swapfile for this path. The default handler already chooses Edit,
+  -- so keep that routine warning from causing a hit-enter prompt.
+  vim.cmd("silent edit!")
 end
 
 -- :ReloadAll (alias :RA) — re-read every open project file from disk, discarding
@@ -15,7 +18,7 @@ local function reload_all()
     local name = vim.api.nvim_buf_get_name(buf)
     if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "" and name ~= "" then
       if vim.fn.filereadable(name) == 1 then
-        local ok = pcall(vim.api.nvim_buf_call, buf, function() vim.cmd("edit!") end)
+        local ok = pcall(vim.api.nvim_buf_call, buf, function() vim.cmd("silent edit!") end)
         reloaded = reloaded + (ok and 1 or 0)
         skipped = skipped + (ok and 0 or 1)
       else
@@ -23,7 +26,9 @@ local function reload_all()
       end
     end
   end
-  vim.notify(("ReloadAll: %d reloaded, %d skipped"):format(reloaded, skipped))
+  if skipped > 0 then
+    vim.notify(("ReloadAll: %d reloaded, %d skipped"):format(reloaded, skipped), vim.log.levels.WARN)
+  end
 end
 
 -- :WriteAll (alias :WA) — save every modified project file (== :wall), and

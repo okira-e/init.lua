@@ -5,9 +5,10 @@
         "language": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
         "path": "./javascript.json"
       },
+      { "language": ["go"], "path": "./go.json" },
       { "language": ["odin"], "path": "./odin.json" },
       { "language": ["rust"], "path": "./rust.json" },
-      { "language": ["c"], "path": "./c.json" }
+      { "language": ["c", "cpp"], "path": "./c.json" }
     ]
   }
 }

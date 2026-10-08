@@ -11,7 +11,7 @@ return {
     opts = {
       ensure_installed = {
         "lua", "vim", "vimdoc", "query", "bash",
-        "c", "cpp", "rust", "go", "gomod", "gosum", "zig",
+        "c", "cpp", "objc", "rust", "go", "gomod", "gosum", "zig",
         "python",
         "typescript", "javascript", "tsx", "html", "css", "json", "jsonc",
         "yaml", "toml", "markdown", "markdown_inline",
@@ -28,6 +28,16 @@ return {
       },
     },
     config = function(_, opts)
+      vim.filetype.add({
+        extension = {
+          m = "objc",
+          mm = "objcpp",
+        },
+      })
+
+      -- nvim-treesitter provides one parser for both Objective-C variants.
+      vim.treesitter.language.register("objc", "objcpp")
+
       require("nvim-treesitter.configs").setup(opts)
       -- Registering highlight above pulls in nvim-treesitter's query directives;
       -- require the module explicitly so they're present, then override the ones

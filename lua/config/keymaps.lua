@@ -127,6 +127,18 @@ map({ "x", "o" }, "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev matc
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- Keep paragraph navigation out of the jumplist so Ctrl-o/Ctrl-i only visit
+-- intentional jumps. Counts still work, while visual and operator-pending
+-- paragraph motions retain their built-in behavior.
+local function paragraph_motion(key)
+  return function()
+    vim.cmd(("keepjumps normal! %d%s"):format(vim.v.count1, key))
+  end
+end
+
+map("n", "{", paragraph_motion("{"), { desc = "Previous paragraph without recording a jump" })
+map("n", "}", paragraph_motion("}"), { desc = "Next paragraph without recording a jump" })
+
 -- Bash-style command-line history search. In cmdline mode, <Up>/<Down> already
 -- search history entries that start with the current command line; make the
 -- familiar Ctrl-p/Ctrl-n keys use that same prefix-filtered history.

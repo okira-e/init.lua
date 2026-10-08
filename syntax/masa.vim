@@ -20,6 +20,8 @@ syntax keyword masaOperator and or not
 syntax match masaOperator "[-+*/%<>=!&|^~?]"
 syntax match masaOperator ":="
 syntax match masaOperator "->"
+" Range iteration, e.g. `for value, index in 0..5`.
+syntax match masaOperator "\.\."
 
 " Odin-style compiler directives, e.g. #private.
 syntax match masaDirective "#\h\w*"

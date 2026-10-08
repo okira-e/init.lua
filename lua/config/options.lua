@@ -32,7 +32,7 @@ opt.breakindent = true
 -- Line numbers + a stable sign column so diagnostics/git signs don't shift text.
 opt.number = false
 opt.signcolumn = "yes"
-opt.cursorline = false
+opt.cursorline = true -- line highlight
 
 -- Colors. termguicolors is required for modern colorschemes.
 opt.termguicolors = true

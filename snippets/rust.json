@@ -2,7 +2,13 @@
   "Logging": {
     "prefix": "cslog",
     "body": [
-      "println!(\"${1}: {${2}}\", ${3});"
+      "println!(\"${1}: {}\", ${2});"
+    ]
+  },
+  "Logging2": {
+    "prefix": "calog",
+    "body": [
+      "println!(\"${1}: {:?}\", ${2});"
     ]
   },
   "Debug": {

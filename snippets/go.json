@@ -1,0 +1,8 @@
+{
+  "Logging": {
+    "prefix": "cslog",
+    "body": [
+      "fmt.Printf(\"${1}: %v\\n\", ${2})"
+    ]
+  }
+}

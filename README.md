@@ -44,6 +44,18 @@ Picker input:
 
 Search is fixed-string by default, not regex. It is case-insensitive until the query contains an uppercase character.
 
+To limit a global search to specific file types, append ripgrep arguments after
+` -- `:
+
+```text
+search term -- -t lua
+search term -- -t js -t ts
+search term -- -g *.tsx -g *.ts
+```
+
+Use `-t` with a ripgrep file type, or `-g` with a filename glob. Run
+`rg --type-list` to see all available file types.
+
 ## LSP
 
 | Key                                  | Action                     |

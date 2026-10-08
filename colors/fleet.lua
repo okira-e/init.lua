@@ -12,7 +12,7 @@ vim.o.background = "dark"
 vim.g.colors_name = "fleet"
 
 local p = {
-  background = "#181818",
+  background = "#0f1419",
   current_line = "#1f1f1f",
   surface = "#292929",
   surface_high = "#383838",

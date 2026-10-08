@@ -42,7 +42,7 @@ local function setup_highlights()
     blue = p.blue,
   }
 
-  if vim.g.colors_name == "jblow" then
+  if vim.g.colors_name == "jblow" or vim.g.colors_name == "jblow2" then
     p.fg = status_fg or p.bg
     p.green = status_fg or p.bg
     p.magenta = status_fg or p.bg
@@ -50,6 +50,16 @@ local function setup_highlights()
     p.blue = status_fg or p.bg
     p.yellow = "#5a421f"
     p.gray = "#5a4f3f"
+  elseif vim.g.colors_name == "casey" then
+    -- Casey's light gray status bar needs dark inline colors. The saturated
+    -- syntax palette is retained for the mode blocks above it.
+    p.fg = status_fg or p.bg
+    p.green = "#285c28"
+    p.magenta = "#663050"
+    p.red = "#8c2020"
+    p.blue = "#604817"
+    p.yellow = "#735913"
+    p.gray = "#555555"
   end
 
   local hl = function(name, opts) vim.api.nvim_set_hl(0, name, opts) end
